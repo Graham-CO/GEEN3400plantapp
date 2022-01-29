@@ -1,0 +1,3 @@
+- 👋 Hi, we're @GEEN3400plantapp
+- 👀 We are designing a line of plant monitoring projects that interface with a cute plant care app. More info to come soon!
+- 📫 To reach us, contact emha9810@colorado.edu (for now).
