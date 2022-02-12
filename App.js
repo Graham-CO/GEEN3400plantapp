@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet} from 'react-native';
+import Navigator from './routes/homeStack';
+import Home from './screens/home';
+import Plants from './screens/plants';
+import About from './screens/about'
 
 const App = () => {
   return(
-    <View style={styles.container}>
-      <Text style = {styles.text}> Mr Pot Buttler</Text>
-      <Image
-       source={{uri: 'https://images.assetsdelivery.com/compings_v2/yupiramos/yupiramos1804/yupiramos180425584.jpg'}} style = {styles.img}
-       />
-    </View>
+    <Navigator />
   );
 };
 
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   text: {
-    color: 'darkslateblue', 
+    color: 'darkgreen', 
     fontSize: 30
   },
   img: {
