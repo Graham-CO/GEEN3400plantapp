@@ -44,6 +44,9 @@ const styles = StyleSheet.create({
         fontSize: 50,
     },
     plantText: {
-        fontSize: 30
+        color: 'white',
+        fontSize: 30,
+        textAlign: 'center',
+        fontWeight: 'bold'
     }
 });

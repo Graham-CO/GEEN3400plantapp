@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, ImageBackground } from 'react-native';
 import Card from '../shared/card';
 
 export default function Home({ navigation}){
@@ -14,17 +14,25 @@ export default function Home({ navigation}){
         navigation.push('Bluetooth'); //pushes next screen onto stack
     }
 
-    return(
-        <View style={styles.container}>
-            <Text style = {styles.titleText}> Home Screen </Text>
-            <Card>
-                <Button title='Go to plants' onPress={pressHandler} />
-            </Card>
-            <Card>
-                <Button title = 'Set up Bluetooth' onPress={pressHandlerBT} />
-            </Card>
 
-        </View>
+    return(
+            <View style={styles.container}>
+                <Text style = {styles.titleText}> Home Screen </Text>
+            <Card>
+                <Button //handles 'go to plants' button
+                    onPress={pressHandler}
+                    title = "Go to Plants"
+                    color = 'white'
+                />
+            </Card>
+            <Card>
+                <Button 
+                    onPress={pressHandlerBT} 
+                    title = "Set up Bluetooth"
+                    color = 'white'
+                    />
+            </Card>
+            </View>
     )
 }
 
@@ -37,5 +45,8 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: 50,
+    },
+    buttonText: {
+        color: 'white',
     }
 });

@@ -10,22 +10,27 @@ export default function Card(props){
         </View>
     )
 }
+/*
 
+card.js handles everything having to do with our cards, or rather, the stuff
+that we see behind the button to make it look better.
+
+*/
 const styles = StyleSheet.create({
     card: {
-        borderRadius: 6,
+        borderRadius: 30,
         elevation: 3,
-        backgroundColor: '#fff',
-        shadowOffset: {width: 1, height: 1},
+        shadowOffset: {width: 5, height: 5}, //offset of shadow
         shadowColor: '#333',
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        marginHorizontal: 4,
-        marginVertical: 6,
+        shadowOpacity: 0.3, //opacity of shadow below button
+        shadowRadius: 1, //shadow radius
+        marginHorizontal: 4, //distance bewteen next object horizontally
+        marginVertical: 6, //distance between next object vertically
+        backgroundColor: '#58d68d', //background color of card
     },
     cardContent: {
-        marginHorizontal: 18,
-        marginVertical: 20
+        marginHorizontal: 10, //width of card
+        marginVertical: 10 //height of card
     }
 })
  
