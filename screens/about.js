@@ -27,7 +27,9 @@ const styles = StyleSheet.create({
         flex: 100,
         width:1000,
         height: 1000,
-        alignItems: 'center'
+        alignItems: 'center',
+        transform: [{ scale:0.15}]
+
     },
     titleText: {
         fontSize: 50,
