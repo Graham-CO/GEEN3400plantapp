@@ -15,7 +15,10 @@ export default function Home({ navigation}){ //pass function navigation
         //navigation.navigate('Plants') //same thing as below
         navigation.push('Bluetooth'); //pushes next screen onto stack
     }
-
+    // const pressHandlerBT = () => { //Function that handles button press
+    //     //navigation.navigate('Plants') //same thing as below
+    //     navigation.push('Description'); //pushes next screen onto stack
+    // }
 
     return(
         <SafeAreaView style={styles.container}>
