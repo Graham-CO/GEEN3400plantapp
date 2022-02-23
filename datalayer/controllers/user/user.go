@@ -10,11 +10,13 @@ import (
 // e.g., GET, POST, etc.
 
 //getUsers responds with the list of all users as JSON
-func GetUsers(c *gin.Context) {
+func getUsers(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, users)
 }
 
-func GetUserByID(c *gin.Context){
+//getUserByID responds with the user information for whoevers ID was used
+//from command line, $ curl http://localhost:8080/users/[userid]
+func getUserByID(c *gin.Context){
 	userid:= c.Param("userid")
 
 	//Loop over users to find album whose ID matches parameter
@@ -26,3 +28,5 @@ func GetUserByID(c *gin.Context){
 	}
 	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "user not found"})
 }
+
+
