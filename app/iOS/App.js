@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Card, Button, TouchableOpacity} from 'react-native';
+import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Card, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground} from 'react-native';
 import Navigator from './routes/homeStack';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler'
@@ -11,6 +11,7 @@ import { color } from 'react-native-reanimated';
 import About from './screens/about';
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
+import { Input } from 'react-native-elements/dist/input/Input';
 
 const Tab = createBottomTabNavigator();
 
@@ -359,15 +360,33 @@ function AboutPlants(){
 
 //Home Screen
 function HomeScreen() {
+   const image = "../images/background.jpeg";
   return (
-        <SafeAreaView style={styles.container}>
-          <Text style={styles.subText}>Ideas for 'home' page?</Text>
-          <Text style={styles.subText}>- Add current weather data</Text>
-          <Text style={styles.subText}>- Add 'explore' type data with info about plants</Text>
-          <Text style={styles.subText}>- Add current weather data</Text>
-          <Text style={styles.subText}>- info about our app?</Text>
-        </SafeAreaView> 
-  );
+      
+      <SafeAreaView style={styles.container}>
+        <ImageBackground source = {image}>
+
+        </ImageBackground>
+        <View style={styles.text1}>
+        <Text>Login</Text>
+        </View>
+        
+     
+
+
+         <View style={styles.email}>
+         <Input placeholder="Email" onChangeText={(text)=> console.log(text)} />
+
+         </View>
+         <View style={styles.password}>
+         <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
+         </View>
+          <View style = {styles.redpanda}>
+            <Image source={require('./images/redpanda1.png')}></Image>
+          </View>
+          </SafeAreaView>
+    )
+  
 }
 
 //Notification Screen (may be changed)
@@ -394,8 +413,6 @@ function Search() {
 }
 
 
-
-
 //Style sheet for all our different styles used across the app
 const styles = StyleSheet.create({
   container: {
@@ -404,6 +421,51 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
+
+
+text1:{
+  top: 200,
+  fontSize: 20,
+  fontWeight: "bold",
+  alignSelf: 'center'
+},
+  loginbutton:{
+    top: 350,
+    right: 50,
+    // alignSelf: 'center', 
+    flex: 1,
+    resizeMode: 'contain'
+
+  },
+  email:{
+    top: 200,
+    // right: 200,
+    alignSelf: 'center', 
+    width: 250,
+    // flex: 1,
+    // resizeMode: 'contain'
+
+  },
+  password: {
+    top: 200,
+    // right: -50,
+    alignSelf: 'center',
+    width: 250,
+
+    // flex: 1,
+    // resizeMode: 'contain'
+  },
+  redpanda:{
+    top: 200,
+    right: 50,
+    // alignSelf: 'center', 
+    flex: 1,
+    resizeMode: 'contain'
+
+  },
+
+
+
   profContainer: {
     flex: 1,
     backgroundColor: 'white',
