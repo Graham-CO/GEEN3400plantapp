@@ -2,7 +2,7 @@ package entities
 
 //TODO: Change User Color- how many diff. color settings need to be defined?
 // iOS Device Interacts with These Values
-type user struct {
+type User struct {
 	// Device	string	`json:"device"`
 	UserID    string `json:"userid"`
 	UserEmail string `json:"useremail"`
