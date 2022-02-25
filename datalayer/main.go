@@ -33,5 +33,5 @@ func main() {
 	router.GET("/users, getUsers") /*use get to associate GET HTTP and /albums path with handler function.
 	passes the NAME of the function, not the result, which you would do by typing getUsers()  */
 
-	router.Run("localhost:8080") //starts the server
+	router.Run("localhost:50080") //starts the server
 }
