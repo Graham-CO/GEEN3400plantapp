@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"potbut/datalayer/entities"
 )
 
 // RESTful C.R.U API controller functions
