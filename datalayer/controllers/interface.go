@@ -5,6 +5,7 @@ import (
 )
 
 type Plant interface {
+	CreatePlant(c *gin.Context)
 }
 
 type PlantDef interface {
