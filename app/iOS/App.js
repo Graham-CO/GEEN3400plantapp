@@ -7,11 +7,12 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useRef } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { color } from 'react-native-reanimated';
-import About from './screens/about';
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
+import { createStackNavigator, HeaderTitle } from "react-navigation-stack";
+import { createAppContainer, StackRouter } from "react-navigation";
+import About from './screens/about'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements/dist/input/Input';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +48,7 @@ const App = () => {
                     backgroundColor: '#58d68d',
                 }
             }}>
-                <Tab.Screen name={"Home"} component={HomeScreen}
+                <Tab.Screen name={"Login"} component={LoginScreen}
                 
                 options={{
                   headerShown: true,
@@ -66,7 +67,7 @@ const App = () => {
                             top: '50%'
                         }}>
                             <FontAwesome5
-                                name="home"
+                                name="address-card"
                                 size={20}
                                 color={focused ? '#58d68d' : 'gray'}
                             ></FontAwesome5>
@@ -110,8 +111,9 @@ const App = () => {
                     }
                 })}></Tab.Screen>
 
-                <Tab.Screen name={"Plants"} component={PlantScreen} 
+                <Tab.Screen name='Your Plants' component={PlantStack} 
                 options={{
+                  headerShown: false,
                   headerTitleStyle:{
                     color: 'white',
                     fontFamily: 'HelveticaNeue',
@@ -319,12 +321,12 @@ function PlantScreen({navigation}) {
       <SafeAreaView style={styles.container}>
           <View style= {styles.statsContainer}>
             <View style = {styles.potPic}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
                   <Image source={require('./images/monstera.png')}></Image>
                 </TouchableOpacity>
             </View>
             <View style = {styles.potPic}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
                 <Image source={require('./images/monstera.png')}></Image>
               </TouchableOpacity>
             </View>
@@ -334,10 +336,14 @@ function PlantScreen({navigation}) {
           </View>
           <View style= {styles.statsContainer}>
             <View style = {styles.potPic}>
-              <Image source={require('./images/monstera.png')}></Image>
+              <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
+                <Image source={require('./images/monstera.png')}></Image>
+              </TouchableOpacity>
             </View>
             <View style = {styles.potPic}>
-              <Image source={require('./images/monstera.png')}></Image>
+              <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
+                <Image source={require('./images/monstera.png')}></Image>
+              </TouchableOpacity>
             </View>
           </View>
           <View style = {styles.shelfPic}>
@@ -349,44 +355,85 @@ function PlantScreen({navigation}) {
       </SafeAreaView> 
   );
 }
+
+
+
+//-------------------------------------------------------------------
+//Plant Stack is used to navigate to the respective plant about screen - in the works
+const Stack = createNativeStackNavigator();
+const PlantStack = () => {
+  return(
+    <Stack.Navigator >
+      <Stack.Screen name='PlantScreen' component={PlantScreen} options={{
+        title: 'Your Plants', //title of page
+        headerStyle:{
+          backgroundColor: '#58d68d' //background color of header
+        },
+        headerTitleStyle: { //Text options
+            color: 'white',
+            fontFamily: 'HelveticaNeue',
+            fontWeight: '300',
+            fontSize: 20
+        },
+      }}/>
+      <Stack.Screen name='AboutPlants' component={AboutPlants} options={{
+        title: 'About your Monsterra',
+        backgroundColor: 'black',
+        headerStyle:{
+          backgroundColor: '#58d68d'
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontFamily: 'HelveticaNeue',
+          fontWeight: '300',
+          fontSize: 20
+      },
+        headerTintColor: 'white' //for back button color
+        }}/>
+    </Stack.Navigator>
+  );
+}
+//-------------------------------------------------------------------
+
+
+
 function AboutPlants(){
   return(
-    <SafeAreaView style = {styles.container}>
-      <Text>about</Text>
-    </SafeAreaView>
+    <Text style = {styles.text}>About plants</Text>
 
   );
 }
 
-//Home Screen
-function HomeScreen() {
-   const image = "../images/background.jpeg";
+//Login Screen
+function LoginScreen() {
+  const image = "../images/background1.jpeg";
   return (
-      
-      <SafeAreaView style={styles.container}>
-        <ImageBackground source = {image}>
+    <SafeAreaView style={styles.container}>
+    <ImageBackground source = {image}>
 
-        </ImageBackground>
-        <View style={styles.text1}>
-        <Text>Login</Text>
-        </View>
-        
-     
+    </ImageBackground>
+    <View style={styles.text1}>
+    <Text>Login</Text>
+    </View>
 
 
-         <View style={styles.email}>
-         <Input placeholder="Email" onChangeText={(text)=> console.log(text)} />
 
-         </View>
-         <View style={styles.password}>
-         <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
-         </View>
-          <View style = {styles.redpanda}>
-            <Image source={require('./images/redpanda1.png')}></Image>
-          </View>
-          </SafeAreaView>
-    )
-  
+
+     <View style={styles.email}>
+     <Input placeholder="Email" onChangeText={(text)=> console.log(text)} />
+
+     </View>
+     <View style={styles.password}>
+     <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
+     </View>
+      <View style = {styles.redpanda}>
+        <Image source={require('./images/redpanda1.png')}></Image>
+      </View>
+      </SafeAreaView>
+  );
+
+
+
 }
 
 //Notification Screen (may be changed)
@@ -421,51 +468,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
-
-
-text1:{
-  top: 200,
-  fontSize: 20,
-  fontWeight: "bold",
-  alignSelf: 'center'
-},
-  loginbutton:{
-    top: 350,
-    right: 50,
-    // alignSelf: 'center', 
-    flex: 1,
-    resizeMode: 'contain'
-
-  },
-  email:{
-    top: 200,
-    // right: 200,
-    alignSelf: 'center', 
-    width: 250,
-    // flex: 1,
-    // resizeMode: 'contain'
-
-  },
-  password: {
-    top: 200,
-    // right: -50,
-    alignSelf: 'center',
-    width: 250,
-
-    // flex: 1,
-    // resizeMode: 'contain'
-  },
-  redpanda:{
-    top: 200,
-    right: 50,
-    // alignSelf: 'center', 
-    flex: 1,
-    resizeMode: 'contain'
-
-  },
-
-
-
   profContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -576,6 +578,46 @@ text1:{
     marginBottom: 75
 
   },
+  text1:{
+    top: 200,
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: 'center'
+  },
+    loginbutton:{
+      top: 350,
+      right: 50,
+      // alignSelf: 'center', 
+      flex: 1,
+      resizeMode: 'contain'
+  
+    },
+    email:{
+      top: 200,
+      // right: 200,
+      alignSelf: 'center', 
+      width: 250,
+      // flex: 1,
+      // resizeMode: 'contain'
+  
+    },
+    password: {
+      top: 200,
+      // right: -50,
+      alignSelf: 'center',
+      width: 250,
+  
+      // flex: 1,
+      // resizeMode: 'contain'
+    },
+    redpanda:{
+      top: 200,
+      right: 50,
+      // alignSelf: 'center', 
+      flex: 1,
+      resizeMode: 'contain'
+  
+    },
 });
 
 export default App;
