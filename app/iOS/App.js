@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Card, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground} from 'react-native';
 import Navigator from './routes/homeStack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useLinkProps } from '@react-navigation/native';
 import 'react-native-gesture-handler'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,7 +12,7 @@ import { createAppContainer, StackRouter } from "react-navigation";
 import About from './screens/about'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements/dist/input/Input';
-
+import CircularProgress from 'react-native-circular-progress-indicator';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +29,7 @@ const App = () => {
             <Tab.Navigator screenOptions={{
                 tabBarShowLabel: false,
                 tabBarStyle:{
-                    backgroundColor: '#f2f2f2',
+                    backgroundColor: '#e6e6e6',
                     position: 'absolute',
                     bottom: 30,
                     marginHorizontal: 20,
@@ -308,43 +308,51 @@ function ProfileScreen() {
 - Sunlight Sensor
 */
 function PlantScreen({navigation}) {
-  const pressHandler = () => {
-    navigation.push('About')
-  }
-  const [plantName, plantInformation] = useState([
-    { plantName: 'Snake Plant', color: 'Green', key: '1'},
-    { plantName: 'Fern', color: 'Dark Green', key: '2'},
-    { plantName: 'Algae', color: 'Orange', key: '3'}
+
+  const [plantNameRow1, plantInformationRow1] = useState([
+    { plantName: 'Snake Plant', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Fern', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Algae', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+
+  ]);
+  const [plantNameRow2, plantInformationRow2] = useState([
+    { plantName: 'Moss', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Conifer', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Pine Tree', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
 
   ]);
   return(
       <SafeAreaView style={styles.container}>
           <View style= {styles.statsContainer}>
-            <View style = {styles.potPic}>
-                <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
-                  <Image source={require('./images/monstera.png')}></Image>
-                </TouchableOpacity>
-            </View>
-            <View style = {styles.potPic}>
-              <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
-                <Image source={require('./images/monstera.png')}></Image>
-              </TouchableOpacity>
-            </View>
+            <FlatList 
+                horizontal = {true}
+                data={plantNameRow1}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
+                      <View style = {styles.testPic}>
+                        <Image source={require('./images/monstera.png')}></Image>
+                      </View>
+                    </TouchableOpacity>
+                )}
+            />
           </View>
           <View style = {styles.shelfPic}>
             <Image source={require('./images/shelf1.png')}></Image>
           </View>
           <View style= {styles.statsContainer}>
-            <View style = {styles.potPic}>
-              <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
-                <Image source={require('./images/monstera.png')}></Image>
-              </TouchableOpacity>
-            </View>
-            <View style = {styles.potPic}>
-              <TouchableOpacity onPress={() => navigation.navigate('AboutPlants')}>
-                <Image source={require('./images/monstera.png')}></Image>
-              </TouchableOpacity>
-            </View>
+          <FlatList 
+                horizontal = {true}
+                data={plantNameRow2}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
+                      <View style = {styles.testPic}>
+                        <Image source={require('./images/monstera.png')}></Image>
+                      </View>
+                    </TouchableOpacity>
+                )}
+            />
           </View>
           <View style = {styles.shelfPic}>
             <Image source={require('./images/shelf1.png')}></Image>
@@ -360,7 +368,7 @@ function PlantScreen({navigation}) {
 
 //-------------------------------------------------------------------
 //Plant Stack is used to navigate to the respective plant about screen - in the works
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator(PlantStack);
 const PlantStack = () => {
   return(
     <Stack.Navigator >
@@ -377,7 +385,7 @@ const PlantStack = () => {
         },
       }}/>
       <Stack.Screen name='AboutPlants' component={AboutPlants} options={{
-        title: 'About your Monsterra',
+        title: 'About your Plant',
         backgroundColor: 'black',
         headerStyle:{
           backgroundColor: '#58d68d'
@@ -396,11 +404,72 @@ const PlantStack = () => {
 //-------------------------------------------------------------------
 
 
+//About screen for when you click on a plant
 
-function AboutPlants(){
+function AboutPlants({navigation, route}){
+
+  const [value, setValue] = useState(0);
+
   return(
-    <Text style = {styles.text}>About plants</Text>
-
+    <ScrollView>
+      <View style = {styles.container}>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}>{route.params?.plantName}</Text>
+        <Text style = {styles.aboutYourPlant}>Your Plant color {route.params?.color}</Text>
+        <Text style = {styles.aboutYourPlant}>Your Plant's ideal moisture: {route.params?.idealMoisture}</Text>
+        <Text>-----------------------------------------</Text>
+      </View>
+      <View style = {styles.container}>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}>Your Moisture</Text>
+      </View>
+      <View style={styles.container}>
+        <CircularProgress
+          radius={90}
+          value={route.params?.moisture} //this will be the value we receive from API
+          textColor='#222'
+          fontSize={20}
+          valueSuffix={'%'}
+          activeStrokeColor={'#0066ff'}
+          activeStrokeSecondaryColor={'#cc33ff'}
+          inActiveStrokeColor={'#0066ff'}
+          inActiveStrokeOpacity={0.2}
+          inActiveStrokeWidth={6}
+          duration={3000}
+          onAnimationComplete={() => setValue(route.params?.sunlight)} //sets the value for next bar
+        />
+      <View style = {styles.container}>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Your Sunlight </Text>
+      </View>
+          <CircularProgress
+          radius={90}
+          value={value} //this will be the value we receive from API
+          textColor='#222'
+          fontSize={20}
+          valueSuffix={'%'}
+          inActiveStrokeColor='#33cc33'
+          activeStrokeColor={'#33cc33'}
+          activeStrokeSecondaryColor='#ffff66'
+          inActiveStrokeOpacity={0.2}
+          inActiveStrokeWidth={6}
+          duration={4000}
+        />
+      </View>
+      <View style = {styles.infoContainer}>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> About your Plant </Text>
+        <Text style={styles.aboutYourPlant}>Monstera are species of evergreen tropical vines 
+        and shrubs that are native to Central America. They are famous for their 
+        natural leaf-holes, which has led to the rise of their nickname, 
+        Swiss Cheese Plant. The Monstera's leaf-holes are called fenestrations 
+        and are theorized to maximize sun fleck capture on the forest 
+        floor by increasing the spread of the leaf while decreasing the mass of
+         leaf cells to support.</Text>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}>Learn More</Text>
+        <Text style={styles.aboutYourPlant}>Two different species of Monstera are cultivated
+         as houseplants - Monstera deliciosa and Monstera adansonii. Monstera adansonii 
+         is distinguished from M. deliciosa by having longer, tapering leaves, as well as 
+         having completely enclosed leaf holes. Monstera deliciosa leaf holes eventually grow 
+         towards the edge and open up as they mature. </Text>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -431,9 +500,6 @@ function LoginScreen() {
       </View>
       </SafeAreaView>
   );
-
-
-
 }
 
 //Notification Screen (may be changed)
@@ -516,6 +582,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center', 
     marginTop: 32,
   },
+  aboutYourPlant: {
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+    marginTop: 16,
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 16,
+    fontFamily: 'HelveticaNeue',
+  },
   statsBox: {
     flex: 1,
     alignItems: 'center',
@@ -562,6 +637,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width:1000,
         height: 1000,
+        marginTop: -100,
         alignItems: 'center',
         transform: [{ scale:0.12}],
         justifyContent: 'space-evenly',
@@ -617,6 +693,16 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: 'contain'
   
+    },
+    testPic: {
+      flexDirection: 'row',
+      height: 50,
+      width: 50,
+      transform: [{ scale:0.2}],
+      justifyContent: 'space-evenly',
+      marginRight: 30,
+      marginLeft: 50,
+      marginBottom: 75
     },
 });
 
