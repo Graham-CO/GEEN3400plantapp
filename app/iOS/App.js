@@ -321,8 +321,31 @@ function PlantScreen({navigation}) {
     { plantName: 'Pine Tree', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
 
   ]);
+  const [plantNameRow3, plantInformationRow3] = useState([
+    { plantName: 'Empty Pot 7', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Empty Pot 8', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Empty Pot 9', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+
+  ]);
+  const [plantNameRow4, plantInformationRow4] = useState([
+    { plantName: 'Empty Pot 10', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Empty Pot 11', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Empty Pot 12', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+
+  ]);
+  const [plantNameRow5, plantInformationRow5] = useState([
+    { plantName: 'Empty Pot 13', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Empty Pot 14', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Empty Pot 15', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+
+  ]);
+  //Should probably be changed (eventually) to safeAreaView
   return(
-      <SafeAreaView style={styles.container}>
+    <ScrollView>
+      <View style={styles.container}>
+        <View>
+          <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36, textAlign: 'center'}]}>Welcome to your plant home page!</Text>
+        </View>
           <View style= {styles.statsContainer}>
             <FlatList 
                 horizontal = {true}
@@ -331,15 +354,18 @@ function PlantScreen({navigation}) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
                       <View style = {styles.testPic}>
-                        <Image source={require('./images/monstera.png')}></Image>
+                        <Image source={require('./images/monsterraScaled.png')}></Image>
                       </View>
                     </TouchableOpacity>
                 )}
             />
           </View>
           <View style = {styles.shelfPic}>
-            <Image source={require('./images/shelf1.png')}></Image>
+            <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
+          <Text style = {styles.subTextPlantRows}>Row 1</Text>
+
+
           <View style= {styles.statsContainer}>
           <FlatList 
                 horizontal = {true}
@@ -348,19 +374,76 @@ function PlantScreen({navigation}) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
                       <View style = {styles.testPic}>
-                        <Image source={require('./images/monstera.png')}></Image>
+                        <Image source={require('./images/monsterraScaled.png')}></Image>
                       </View>
                     </TouchableOpacity>
                 )}
             />
           </View>
           <View style = {styles.shelfPic}>
-            <Image source={require('./images/shelf1.png')}></Image>
+            <Image source={require('./images/ScaledShelf.png')}></Image>
+          </View>
+          <Text style = {styles.subTextPlantRows}>Row 2</Text>
+
+          <View style= {styles.statsContainer}>
+            <FlatList 
+                horizontal = {true}
+                data={plantNameRow3}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
+                      <View style = {styles.testPic}>
+                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                      </View>
+                    </TouchableOpacity>
+                )}
+            />
           </View>
           <View style = {styles.shelfPic}>
-            <Image source={require('./images/shelf1.png')}></Image>
+            <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
-      </SafeAreaView> 
+          <Text style = {styles.subTextPlantRows}>Row 3</Text>
+
+          <View style= {styles.statsContainer}>
+            <FlatList 
+                horizontal = {true}
+                data={plantNameRow4}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
+                      <View style = {styles.testPic}>
+                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                      </View>
+                    </TouchableOpacity>
+                )}
+            />
+          </View>
+          <View style = {styles.shelfPic}>
+            <Image source={require('./images/ScaledShelf.png')}></Image>
+          </View>
+          <Text style = {styles.subTextPlantRows}>Row 4</Text>
+
+          <View style= {styles.statsContainer}>
+            <FlatList 
+                horizontal = {true}
+                data={plantNameRow5}
+                scrollEnabled={false}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
+                      <View style = {styles.testPic}>
+                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                      </View>
+                    </TouchableOpacity>
+                )}
+            />
+          </View>
+          <View style = {styles.shelfPic}>
+            <Image source={require('./images/ScaledShelf.png')}></Image>
+          </View>
+          <Text style = {styles.subTextPlantRows}>Row 5</Text>
+
+      </View> 
+    </ScrollView>
   );
 }
 
@@ -414,7 +497,7 @@ function AboutPlants({navigation, route}){
     <ScrollView>
       <View style = {styles.container}>
         <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}>{route.params?.plantName}</Text>
-        <Text style = {styles.aboutYourPlant}>Your Plant color {route.params?.color}</Text>
+        <Text style = {styles.aboutYourPlant}>Your Plant color: {route.params?.color}</Text>
         <Text style = {styles.aboutYourPlant}>Your Plant's ideal moisture: {route.params?.idealMoisture}</Text>
         <Text>-----------------------------------------</Text>
       </View>
@@ -468,6 +551,21 @@ function AboutPlants({navigation, route}){
          is distinguished from M. deliciosa by having longer, tapering leaves, as well as 
          having completely enclosed leaf holes. Monstera deliciosa leaf holes eventually grow 
          towards the edge and open up as they mature. </Text>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Sunlight </Text>
+        <Text style={styles.aboutYourPlant}>Thrives in bright to medium indirect light.
+          Not suited for intense, direct sun but can be acclimated to withstand it. </Text>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Humidity </Text>
+        <Text style={styles.aboutYourPlant}>Normal room humidity will do, but prefers 
+          humid conditions if possible. Consider incorporating a fine-mist mister or 
+          humidifier to boost humidity level indoors. </Text>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Soil </Text>
+        <Text style={styles.aboutYourPlant}>Use a well-draining potting mix. Mix in
+          ingredients such as perlite or lava rocks to increase soil aeration as need. </Text>
+        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Common Problems </Text>
+        <Text style={styles.aboutYourPlant}>The Monstera is an easy-going plant and is generally
+          pest-free. Treat pests as soon as they appear with weekly sprays of a natural pesticide 
+          like neem oil and regular wipe-downs of the plant.</Text>
+            
       </View>
     </ScrollView>
   );
@@ -482,22 +580,17 @@ function LoginScreen() {
 
     </ImageBackground>
     <View style={styles.text1}>
-    <Text>Login</Text>
+        <Text style = {styles.profileText}>Login</Text>
     </View>
-
-
-
-
-     <View style={styles.email}>
-     <Input placeholder="Email" onChangeText={(text)=> console.log(text)} />
-
-     </View>
-     <View style={styles.password}>
-     <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
-     </View>
-      <View style = {styles.redpanda}>
-        <Image source={require('./images/redpanda1.png')}></Image>
+      <View style={styles.email}>
+        <Input placeholder="Username" onChangeText={(text)=> console.log(text)} />
       </View>
+      <View style={styles.password}>
+        <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
+      </View>
+    <View style = {styles.redpanda}>
+          <Image source={require('./images/redpanda1.png')}></Image>
+    </View>
       </SafeAreaView>
   );
 }
@@ -601,6 +694,15 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: '500'
   },
+  subTextPlantRows: {
+    fontSize: 12,
+    color: '#AEB5BC',
+    textTransform: 'uppercase',
+    fontWeight: '500',
+    fontSize: 10,
+    marginTop: -80,
+    marginBottom: 40,
+  },
   mediaImageContainer: {
     width: 175,
     height: 200,
@@ -635,11 +737,12 @@ const styles = StyleSheet.create({
   },
   shelfPic: {
         flex: 1,
-        width:1000,
-        height: 1000,
-        marginTop: -100,
+        width: 332,
+        height: 41,
+        marginTop: 0,
+        marginBottom: 50,
         alignItems: 'center',
-        transform: [{ scale:0.12}],
+        //transform: [{ scale:0.12}],
         justifyContent: 'space-evenly',
         
   },
@@ -698,11 +801,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       height: 50,
       width: 50,
-      transform: [{ scale:0.2}],
+      //transform: [{ scale:0.2}],
       justifyContent: 'space-evenly',
       marginRight: 30,
       marginLeft: 50,
-      marginBottom: 75
+      marginBottom: 53
     },
 });
 
