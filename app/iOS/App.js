@@ -13,6 +13,8 @@ import About from './screens/about'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements/dist/input/Input';
 import CircularProgress from 'react-native-circular-progress-indicator';
+// import Card from '../shared/card.js';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -574,6 +576,8 @@ function AboutPlants({navigation, route}){
 //Login Screen
 function LoginScreen() {
   const image = "../images/background1.jpeg";
+ 
+ 
   return (
     <SafeAreaView style={styles.container}>
     <ImageBackground source = {image}>
@@ -588,7 +592,13 @@ function LoginScreen() {
       <View style={styles.password}>
         <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
       </View>
+     
     <View style = {styles.redpanda}>
+    <Button
+        title="Login"
+        // position= "center"
+        onPress={() => Alert.alert('Simple Button pressed')}
+      />
           <Image source={require('./images/redpanda1.png')}></Image>
     </View>
       </SafeAreaView>
@@ -627,6 +637,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
+
   profContainer: {
     flex: 1,
     backgroundColor: 'white',
