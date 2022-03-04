@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Card, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground} from 'react-native';
+import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground, Alert} from 'react-native';
 import Navigator from './routes/homeStack';
 import { NavigationContainer, useLinkProps } from '@react-navigation/native';
 import 'react-native-gesture-handler'
@@ -13,7 +13,7 @@ import About from './screens/about'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements/dist/input/Input';
 import CircularProgress from 'react-native-circular-progress-indicator';
-// import Card from '../shared/card.js';
+import Card from './shared/card';
 
 
 const Tab = createBottomTabNavigator();
@@ -50,10 +50,10 @@ const App = () => {
                     backgroundColor: '#58d68d',
                 }
             }}>
-                <Tab.Screen name={"Login"} component={LoginScreen}
+                <Tab.Screen name={"Login"} component={LoginStack}
                 
                 options={{
-                  headerShown: true,
+                  headerShown: false,
                   headerStatusBarHeight: 47,
                   headerTitleAlign: 'center',
                   headerTitleStyle:{
@@ -318,27 +318,27 @@ function PlantScreen({navigation}) {
 
   ]);
   const [plantNameRow2, plantInformationRow2] = useState([
-    { plantName: 'Moss', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Conifer', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Pine Tree', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Moss', color: 'Green', key: '4', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Conifer', color: 'Dark Green', key: '5', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Pine Tree', color: 'Orange', key: '6', moisture: 75, sunlight: 65, idealMoisture: '70%'},
 
   ]);
   const [plantNameRow3, plantInformationRow3] = useState([
-    { plantName: 'Empty Pot 7', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Empty Pot 8', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Empty Pot 9', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Empty Pot 7', color: 'Green', key: '7', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Empty Pot 8', color: 'Dark Green', key: '8', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Empty Pot 9', color: 'Orange', key: '9', moisture: 75, sunlight: 65, idealMoisture: '70%'},
 
   ]);
   const [plantNameRow4, plantInformationRow4] = useState([
-    { plantName: 'Empty Pot 10', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Empty Pot 11', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Empty Pot 12', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Empty Pot 10', color: 'Green', key: '10', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Empty Pot 11', color: 'Dark Green', key: '11', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Empty Pot 12', color: 'Orange', key: '12', moisture: 75, sunlight: 65, idealMoisture: '70%'},
 
   ]);
   const [plantNameRow5, plantInformationRow5] = useState([
-    { plantName: 'Empty Pot 13', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Empty Pot 14', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Empty Pot 15', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Empty Pot 13', color: 'Green', key: '13', moisture: 95, sunlight: 85, idealMoisture: '90%'},
+    { plantName: 'Empty Pot 14', color: 'Dark Green', key: '14', moisture: 45, sunlight: 35, idealMoisture: '40%'},
+    { plantName: 'Empty Pot 15', color: 'Orange', key: '15', moisture: 75, sunlight: 65, idealMoisture: '70%'},
 
   ]);
   //Should probably be changed (eventually) to safeAreaView
@@ -487,6 +487,99 @@ const PlantStack = () => {
   );
 }
 //-------------------------------------------------------------------
+//-------------------------------------------------------------------
+//Plant Stack is used to navigate to the respective plant about screen - in the works
+const TheLoginStack = createNativeStackNavigator(LoginStack);
+const LoginStack = () => {
+  return(
+    <Stack.Navigator >
+      <Stack.Screen name='Login Screen' component={LoginScreen} options={{
+        title: 'Login Screen', //title of page
+        headerStyle:{
+          backgroundColor: '#58d68d' //background color of header
+        },
+        headerTitleStyle: { //Text options
+            color: 'white',
+            fontFamily: 'HelveticaNeue',
+            fontWeight: '300',
+            fontSize: 20
+        },
+      }}/>
+      <Stack.Screen name='AboutTheTeam' component={AboutTheTeam} options={{
+        title: 'About the Team',
+        backgroundColor: 'black',
+        headerStyle:{
+          backgroundColor: '#58d68d'
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontFamily: 'HelveticaNeue',
+          fontWeight: '300',
+          fontSize: 20
+      },
+        headerTintColor: 'white' //for back button color
+        }}/>
+    </Stack.Navigator>
+  );
+}
+//-------------------------------------------------------------------
+function AboutTheTeam({navigation}) {
+  return (
+    <ScrollView backgroundColor='white'>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Meet the Team! </Text>
+      <View style = {styles.container}>
+        <Text style = {styles.profileText, styles.subText}>
+          <Image source={require('./images/Groot.png')} style = {styles.AboutTeamImage} resizeMode='center'></Image>
+          Emily
+        </Text>
+      </View>
+      <Text style = {styles.profileText, styles.subText}>
+        About Emily
+      </Text>
+
+
+      <View style = {styles.container}>
+        <Text style = {styles.profileText, styles.subText}>
+          <Image source={require('./images/Hulk.png')} style = {styles.AboutTeamImage} resizeMode='contain'></Image>
+          Troy
+        </Text>
+      </View>
+      <Text style = {styles.profileText, styles.subText}>
+        About Troy
+      </Text>
+
+      <View style = {styles.container}>
+        <Text style = {styles.profileText, styles.subText}>
+          <Image source={require('./images/BlackWidow.png')} style = {styles.AboutTeamImage} resizeMode='contain'></Image>
+          Graham
+        </Text>
+      </View>
+      <Text style = {styles.profileText, styles.subText}>
+        About Graham
+      </Text>
+
+      <View style = {styles.container}>
+        <Text style = {styles.profileText, styles.subText}>
+          <Image source={require('./images/Thanos2.png')} style = {styles.AboutTeamImage} resizeMode='center'></Image>
+          Ethan
+        </Text>
+      </View>
+      <Text style = {styles.profileText, styles.subText}>
+        About Ethan
+      </Text>
+
+      <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> The Boring Stuff </Text>
+      <Text style = {styles.profileText, styles.subText}>
+        This is where we will put our credibility
+      </Text>
+
+
+    </View>
+    </ScrollView>
+  );
+}
+
 
 
 //About screen for when you click on a plant
@@ -519,14 +612,14 @@ function AboutPlants({navigation, route}){
           inActiveStrokeOpacity={0.2}
           inActiveStrokeWidth={6}
           duration={3000}
-          onAnimationComplete={() => setValue(route.params?.sunlight)} //sets the value for next bar
+          //onAnimationComplete={() => setValue(route.params?.sunlight)} //sets the value for next bar
         />
       <View style = {styles.container}>
         <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Your Sunlight </Text>
       </View>
           <CircularProgress
           radius={90}
-          value={value} //this will be the value we receive from API
+          value={route.params?.sunlight} //this will be the value we receive from API
           textColor='#222'
           fontSize={20}
           valueSuffix={'%'}
@@ -574,15 +667,18 @@ function AboutPlants({navigation, route}){
 }
 
 //Login Screen
-function LoginScreen() {
+function LoginScreen({navigation}) {
   const image = "../images/background1.jpeg";
- 
- 
   return (
     <SafeAreaView style={styles.container}>
-    <ImageBackground source = {image}>
-
-    </ImageBackground>
+    <ImageBackground source = {image}></ImageBackground>
+    <Card>
+      <Button 
+      title='Meet The Team' 
+      onPress={() => navigation.navigate('AboutTheTeam')}
+      color = 'black'
+      />
+    </Card>
     <View style={styles.text1}>
         <Text style = {styles.profileText}>Login</Text>
     </View>
@@ -592,7 +688,6 @@ function LoginScreen() {
       <View style={styles.password}>
         <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
       </View>
-     
     <View style = {styles.redpanda}>
     <Button
         title="Login"
@@ -637,7 +732,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
-
   profContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -672,6 +766,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     overflow: 'hidden'
   },
+  AboutTeamImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 200,
+    overflow: 'hidden'
+  },
   infoContainer: {
     alignSelf: 'center',
     alignItems: 'center',
@@ -703,7 +803,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#AEB5BC',
     textTransform: 'uppercase',
-    fontWeight: '500'
+    fontWeight: '500',
+    marginBottom: 10
   },
   subTextPlantRows: {
     fontSize: 12,
