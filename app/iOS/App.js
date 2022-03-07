@@ -14,6 +14,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements/dist/input/Input';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import Card from './shared/card';
+import MeetTeamCard from './shared/meetTeamCard';
 
 
 const Tab = createBottomTabNavigator();
@@ -251,16 +252,16 @@ function ProfileScreen() {
 
         <View style = {styles.statsContainer}>
           <View style={styles.statsBox}>
-            <Text style = {styles.profileText, {fontWeight: '200',fontSize: 24}}>293</Text>
-            <Text style = {styles.profileText, styles.subText}>Friends</Text>
+            <Text style = {[styles.profileText, {fontWeight: '200',fontSize: 24}]}>293</Text>
+            <Text style = {[styles.profileText, styles.subText]}>Friends</Text>
           </View>
           <View style={[styles.statsBox, {borderColor: '#DFD8CD', borderLeftWidth: 1, borderRightWidth: 1}]}>
-            <Text style = {styles.profileText, {fontWeight: '200',fontSize: 24}}>400</Text>
-            <Text style = {styles.profileText, styles.subText}>Plants</Text>
+            <Text style = {[styles.profileText, {fontWeight: '200',fontSize: 24}]}>400</Text>
+            <Text style = {[styles.profileText, styles.subText]}>Plants</Text>
           </View>
           <View style={styles.statsBox}>
-            <Text style = {styles.profileText, {fontWeight: '200',fontSize: 24}}>12</Text>
-            <Text style = {styles.profileText, styles.subText}>Mr. Pots</Text>
+            <Text style = {[styles.profileText, {fontWeight: '200',fontSize: 24}]}>12</Text>
+            <Text style = {[styles.profileText, styles.subText]}>Mr. Pots</Text>
           </View>
         </View>
 
@@ -529,48 +530,48 @@ function AboutTheTeam({navigation}) {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Meet the Team! </Text>
       <View style = {styles.container}>
-        <Text style = {styles.profileText, styles.subText}>
+        <Text style = {styles.subText}>
           <Image source={require('./images/Groot.png')} style = {styles.AboutTeamImage} resizeMode='center'></Image>
           Emily
         </Text>
       </View>
-      <Text style = {styles.profileText, styles.subText}>
+      <Text style = {styles.subText}>
         About Emily
       </Text>
 
 
       <View style = {styles.container}>
-        <Text style = {styles.profileText, styles.subText}>
+        <Text style = {styles.subText}>
           <Image source={require('./images/Hulk.png')} style = {styles.AboutTeamImage} resizeMode='contain'></Image>
           Troy
         </Text>
       </View>
-      <Text style = {styles.profileText, styles.subText}>
+      <Text style = {styles.subText}>
         About Troy
       </Text>
 
       <View style = {styles.container}>
-        <Text style = {styles.profileText, styles.subText}>
+        <Text style = {styles.subText}>
           <Image source={require('./images/BlackWidow.png')} style = {styles.AboutTeamImage} resizeMode='contain'></Image>
           Graham
         </Text>
       </View>
-      <Text style = {styles.profileText, styles.subText}>
+      <Text style = {styles.subText}>
         About Graham
       </Text>
 
       <View style = {styles.container}>
-        <Text style = {styles.profileText, styles.subText}>
+        <Text style = {styles.subText}>
           <Image source={require('./images/Thanos2.png')} style = {styles.AboutTeamImage} resizeMode='center'></Image>
           Ethan
         </Text>
       </View>
-      <Text style = {styles.profileText, styles.subText}>
+      <Text style = {styles.subText}>
         About Ethan
       </Text>
 
       <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> The Boring Stuff </Text>
-      <Text style = {styles.profileText, styles.subText}>
+      <Text style = {styles.subText}>
         This is where we will put our credibility
       </Text>
 
@@ -672,15 +673,15 @@ function LoginScreen({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
     <ImageBackground source = {image}></ImageBackground>
-    <Card>
+    <MeetTeamCard>
       <Button 
       title='Meet The Team' 
       onPress={() => navigation.navigate('AboutTheTeam')}
-      color = 'black'
+      color = 'white'
       />
-    </Card>
+    </MeetTeamCard>
     <View style={styles.text1}>
-        <Text style = {styles.profileText}>Login</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, marginBottom: 10}]}>Login</Text>
     </View>
       <View style={styles.email}>
         <Input placeholder="Username" onChangeText={(text)=> console.log(text)} />
@@ -688,14 +689,28 @@ function LoginScreen({navigation}) {
       <View style={styles.password}>
         <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
       </View>
-    <View style = {styles.redpanda}>
-    <Button
-        title="Login"
-        // position= "center"
-        onPress={() => Alert.alert('Simple Button pressed')}
-      />
-          <Image source={require('./images/redpanda1.png')}></Image>
+    <View style = {{flexDirection: 'row', marginTop: 60}}>
+      <Card>
+        <Button
+            title="Login"
+            // position= "center"
+            onPress={() => Alert.alert('Logging In...')}
+            color = 'white'
+          />
+      </Card>
+      <Card>
+        <Button
+            title="Register"
+            // position= "center"
+            onPress={() => Alert.alert('Registering...')}
+            color = 'white'
+          />
+      </Card>
     </View>
+      <View style = {styles.redpanda}>
+            <Image source={require('./images/redpanda1.png')}></Image>
+      </View>
+    
       </SafeAreaView>
   );
 }
@@ -870,13 +885,13 @@ const styles = StyleSheet.create({
 
   },
   text1:{
-    top: 200,
+    top: 75,
     fontSize: 20,
     fontWeight: "bold",
     alignSelf: 'center'
   },
     loginbutton:{
-      top: 350,
+      top: 100,
       right: 50,
       // alignSelf: 'center', 
       flex: 1,
@@ -884,7 +899,7 @@ const styles = StyleSheet.create({
   
     },
     email:{
-      top: 200,
+      top: 75,
       // right: 200,
       alignSelf: 'center', 
       width: 250,
@@ -893,7 +908,7 @@ const styles = StyleSheet.create({
   
     },
     password: {
-      top: 200,
+      top: 75,
       // right: -50,
       alignSelf: 'center',
       width: 250,
@@ -902,8 +917,8 @@ const styles = StyleSheet.create({
       // resizeMode: 'contain'
     },
     redpanda:{
-      top: 200,
-      right: 50,
+      top: 0,
+      right: 30,
       // alignSelf: 'center', 
       flex: 1,
       resizeMode: 'contain'
@@ -922,3 +937,8 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+//Snake
+//Aloe
+//Pothos
+//Spider
