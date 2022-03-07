@@ -23,7 +23,7 @@ func CreatePlant(plants *firestore.CollectionRef) gin.HandlerFunc {
 
 		log.Println("created plant", plant)
 
-		wr, err := plants.Doc(plant.UserID).Create(ctx, &plant)
+		wr, err := plants.NewDoc().Create(ctx, &plant)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"code": http.StatusInternalServerError, "message": err.Error()})
 			return
