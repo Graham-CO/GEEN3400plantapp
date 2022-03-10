@@ -1,21 +1,20 @@
 import React, {useState} from 'react';
 import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground, Alert} from 'react-native';
-import Navigator from './routes/homeStack';
+//import Navigator from './routes/homeStack';
 import { NavigationContainer, useLinkProps } from '@react-navigation/native';
 import 'react-native-gesture-handler'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useRef } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { createStackNavigator, HeaderTitle } from "react-navigation-stack";
-import { createAppContainer, StackRouter } from "react-navigation";
-import About from './screens/about'
+//import { createStackNavigator, HeaderTitle } from "react-navigation-stack";
+//import { createAppContainer, StackRouter } from "react-navigation";
+//import About from './screens/about'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements/dist/input/Input';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import Card from './shared/card';
 import MeetTeamCard from './shared/meetTeamCard';
-
 
 const Tab = createBottomTabNavigator();
 
@@ -313,42 +312,81 @@ function ProfileScreen() {
 function PlantScreen({navigation}) {
 
   const [plantNameRow1, plantInformationRow1] = useState([
-    { plantName: 'Snake Plant', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Fern', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Algae', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Snake Plant', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%', image: require('./images/SnakeScaled2.png'), 
+    description: 
+    'Snake plants originate in the rocky and dry regions of Central Africa. There are a multitude of snake plant varieties however the most common are the: Sansevieria Trifasciata, Sansevieria Cylindrica, and Sansevieria Futura  Robusta. All of these plants belong to the same family and can grow to be several feet tall. They are very firm plants and act very similar to succulents because they are succulents.',
+    care:
+    'Although this is a succulent it is recommended that it does not get direct sunlight because that can lead to brown burned spots on the leaves. The Snake plant will let you know when it has too much water.',
+    careBullets:
+    '\u25cf Water: Thoroughly water once the pot is dry \n \n \u25cf Soil: Use succulent soil or a mix of quick drying soil \n \n \u25cf Sunlight: Bright indirect light for most of the day \n \n \u25cf Fungus Problems: Limit the amount of water that you are using and acquire some fungicide',
+    moreCare:
+    'This plant is very prone to overwatering and root rot. If you have this plant selected the app will notify you if it senses that the soil has been too wet for too long. If this occurs than it suggested to use a succulent mix or to repot the soil and to use rocks on the base of your pot for better drainage',
+    propagation:
+    "The most common and successful method of propagating this species is to take angled cuts of the plant and put it in distilled water. It is best to do this during the summer months, however if you're able to keep the water at a uniform warm temperature than any time during the year is sufficient for propagating",
+    numPics: 2,
+    problemImage1: require('./images/snakePlantFungalDisease.png'),
+    problemImage1Descrip: 'Fungal Disease',
+    problemImage2: require('./images/snakePlantOverWatered.png'),
+    problemImage2Descrip: 'Over Watering',
+
+  },
+
+    { plantName: 'Spider Plant', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%', image: require('./images/SpiderScaled2.png'),
+    description: 
+    'This plant originates from the African Tropical Rainforest. However, despite its vast number of variants that arose from here it is very prone to being overwatered. This species is called the Chlorophytum Comosum and is one of the most common indoor houseplants. It got this way because of its remarkable ability to reproduce. It will grow vines that have smaller baby plants on it. This plant has several different types of variegation and',
+    care:
+    'Although this is indiginous to the tropical rainforests, these plants need to have their soil thoroughly dry before watering it again',
+    careBullets:
+    "\u25cf Water: Thoroughly water once the pot is dry \n \n \u25cf Soil: Use succulent soil or a mix of quick drying soil \n \n \u25cf Sunlight: Bright indirect light for most of the day",
+    moreCare:
+    "This plant is very prone to overwatering and root rot. If you have this plant selected the app will notify you if it senses that the soil has been too wet for too long. If this occurs than it suggested to use a succulent mix or to repot the soil and to use rocks on the base of your pot for better drainage. Brown tips signal that the plant is getting too much or too little water. Please refer to the app's historical tracking of how wet the soil is to determine how to proceed.",
+    propagation:
+    "When you see these baby spider plants on a vine, mist them every day so that they can grow roots. Once the roots form and have grown about an inch long they are ready to be planted into succulent soil. This is the most common way to propagate, however there are several more ways that can yield similar success rates",
+    problemImage1: require('./images/SpiderOverWatering.png'),
+    problemImage1Descrip: 'Over Watering',
+    problemImage2: require('./images/SpiderUnderWatering.png'),
+    problemImage2Descrip: 'Under / Over Watering',
+  },
+
+    { plantName: 'Pothos', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%', image: require('./images/PothosScaled2.png'),
+    description: 
+    'Pothos is one of the most common houseplants that originates from the asian main continent as well as on many pacific islands. These plants are a vine that is part of the Araceae family. These are a vine that are used to climbing up trees and cliff sides and are limited to the size of the surface that they are climbing. There are several different species of these and have unique different variegation options. If your plant has a lot of variegation it will need more sunlight. It is recommended that you get a climbing pole for these plants to climb up on.',
+    care:
+    'These plants are used to getting a lot of water. They like to have their soil very moist.',
+    careBullets:
+    '\u25cf Water: Thoroughly when the top inch of soil has become dry \n \n \u25cf Soil: Use a tropical or flower based pot mix. Include wood chips for best results. This will retain more moisture. \n \n \u25cf Sunlight: Bright indirect light for most of the day. If you have a highly variegated species be sure that it gets a few hours of direct sunlight every day',
+    propagation:
+    "These propagate in nature with flowers, however for a plant enthusiast the most common way is to take cuttings of the plant around the node area. "},
 
   ]);
   const [plantNameRow2, plantInformationRow2] = useState([
-    { plantName: 'Moss', color: 'Green', key: '4', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Conifer', color: 'Dark Green', key: '5', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Pine Tree', color: 'Orange', key: '6', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Monsterra', color: 'Green', key: '4', moisture: 95, sunlight: 85, idealMoisture: '90%', image: require('./images/MonsterraScaled2.png')},
+    { plantName: 'Aglaonema', color: 'Dark Green', key: '5', moisture: 45, sunlight: 35, idealMoisture: '40%', image: require('./images/AglanemaScaled.png')},
+    { plantName: 'Croton', color: 'Orange', key: '6', moisture: 75, sunlight: 65, idealMoisture: '70%', image: require('./images/CrotonScaled.png')},
 
   ]);
   const [plantNameRow3, plantInformationRow3] = useState([
-    { plantName: 'Empty Pot 7', color: 'Green', key: '7', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Empty Pot 8', color: 'Dark Green', key: '8', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Empty Pot 9', color: 'Orange', key: '9', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Empty Pot 7', color: 'null', key: '7', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 8', color: 'null', key: '8', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 9', color: 'null', key: '9', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
 
   ]);
   const [plantNameRow4, plantInformationRow4] = useState([
-    { plantName: 'Empty Pot 10', color: 'Green', key: '10', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Empty Pot 11', color: 'Dark Green', key: '11', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Empty Pot 12', color: 'Orange', key: '12', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Empty Pot 10', color: 'Green', key: '10', moisture: 95, sunlight: 85, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 11', color: 'Dark Green', key: '11', moisture: 45, sunlight: 35, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 12', color: 'Orange', key: '12', moisture: 75, sunlight: 65, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
 
   ]);
   const [plantNameRow5, plantInformationRow5] = useState([
-    { plantName: 'Empty Pot 13', color: 'Green', key: '13', moisture: 95, sunlight: 85, idealMoisture: '90%'},
-    { plantName: 'Empty Pot 14', color: 'Dark Green', key: '14', moisture: 45, sunlight: 35, idealMoisture: '40%'},
-    { plantName: 'Empty Pot 15', color: 'Orange', key: '15', moisture: 75, sunlight: 65, idealMoisture: '70%'},
+    { plantName: 'Empty Pot 13', color: 'Green', key: '13', moisture: 95, sunlight: 85, idealMoisture: '90%', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 14', color: 'Dark Green', key: '14', moisture: 45, sunlight: 35, idealMoisture: '40%', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 15', color: 'Orange', key: '15', moisture: 75, sunlight: 65, idealMoisture: '70%', image: require('./images/CurrentEmptyPotScaled.png')},
 
   ]);
   //Should probably be changed (eventually) to safeAreaView
   return(
     <ScrollView>
       <View style={styles.container}>
-        <View>
-          <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36, textAlign: 'center'}]}>Welcome to your plant home page!</Text>
-        </View>
           <View style= {styles.statsContainer}>
             <FlatList 
                 horizontal = {true}
@@ -357,7 +395,7 @@ function PlantScreen({navigation}) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
                       <View style = {styles.testPic}>
-                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                        <Image source={(item.image)}></Image>
                       </View>
                     </TouchableOpacity>
                 )}
@@ -366,7 +404,6 @@ function PlantScreen({navigation}) {
           <View style = {styles.shelfPic}>
             <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
-          <Text style = {styles.subTextPlantRows}>Row 1</Text>
 
 
           <View style= {styles.statsContainer}>
@@ -377,7 +414,7 @@ function PlantScreen({navigation}) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
                       <View style = {styles.testPic}>
-                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                      <Image source={(item.image)}></Image>
                       </View>
                     </TouchableOpacity>
                 )}
@@ -386,7 +423,6 @@ function PlantScreen({navigation}) {
           <View style = {styles.shelfPic}>
             <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
-          <Text style = {styles.subTextPlantRows}>Row 2</Text>
 
           <View style= {styles.statsContainer}>
             <FlatList 
@@ -396,7 +432,7 @@ function PlantScreen({navigation}) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
                       <View style = {styles.testPic}>
-                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                        <Image source={(item.image)}></Image>
                       </View>
                     </TouchableOpacity>
                 )}
@@ -405,7 +441,6 @@ function PlantScreen({navigation}) {
           <View style = {styles.shelfPic}>
             <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
-          <Text style = {styles.subTextPlantRows}>Row 3</Text>
 
           <View style= {styles.statsContainer}>
             <FlatList 
@@ -415,7 +450,7 @@ function PlantScreen({navigation}) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
                       <View style = {styles.testPic}>
-                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                        <Image source={(item.image)}></Image>
                       </View>
                     </TouchableOpacity>
                 )}
@@ -424,7 +459,6 @@ function PlantScreen({navigation}) {
           <View style = {styles.shelfPic}>
             <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
-          <Text style = {styles.subTextPlantRows}>Row 4</Text>
 
           <View style= {styles.statsContainer}>
             <FlatList 
@@ -434,7 +468,7 @@ function PlantScreen({navigation}) {
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => navigation.navigate('AboutPlants', item)}>
                       <View style = {styles.testPic}>
-                        <Image source={require('./images/monsterraScaled.png')}></Image>
+                        <Image source={(item.image)}></Image>
                       </View>
                     </TouchableOpacity>
                 )}
@@ -443,7 +477,6 @@ function PlantScreen({navigation}) {
           <View style = {styles.shelfPic}>
             <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
-          <Text style = {styles.subTextPlantRows}>Row 5</Text>
 
       </View> 
     </ScrollView>
@@ -459,7 +492,14 @@ const PlantStack = () => {
   return(
     <Stack.Navigator >
       <Stack.Screen name='PlantScreen' component={PlantScreen} options={{
-        title: 'Your Plants', //title of page
+        title: 'My Garden', //title of page
+        headerRight: () => (
+          <FontAwesome5 
+            name = 'plus'
+            color = 'white'
+            size={20}
+          />
+        ),
         headerStyle:{
           backgroundColor: '#58d68d' //background color of header
         },
@@ -469,6 +509,7 @@ const PlantStack = () => {
             fontWeight: '300',
             fontSize: 20
         },
+
       }}/>
       <Stack.Screen name='AboutPlants' component={AboutPlants} options={{
         title: 'About your Plant',
@@ -495,7 +536,7 @@ const LoginStack = () => {
   return(
     <Stack.Navigator >
       <Stack.Screen name='Login Screen' component={LoginScreen} options={{
-        title: 'Login Screen', //title of page
+        title: 'Login', //title of page
         headerStyle:{
           backgroundColor: '#58d68d' //background color of header
         },
@@ -588,19 +629,23 @@ function AboutTheTeam({navigation}) {
 function AboutPlants({navigation, route}){
 
   const [value, setValue] = useState(0);
+  const numPics = route.params?.numPics;
 
   return(
     <ScrollView>
       <View style = {styles.container}>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}>{route.params?.plantName}</Text>
-        <Text style = {styles.aboutYourPlant}>Your Plant color: {route.params?.color}</Text>
-        <Text style = {styles.aboutYourPlant}>Your Plant's ideal moisture: {route.params?.idealMoisture}</Text>
-        <Text>-----------------------------------------</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36}]}>{route.params?.plantName}</Text>
       </View>
-      <View style = {styles.container}>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}>Your Moisture</Text>
+      <View style = {styles.circularContainer}>
+        <Text style = {[styles.aboutYourPlant, {fontWeight: '400', fontSize: 17, color: 'black'}]}>Ideal Moisture: {route.params?.idealMoisture}</Text>
+        <Text style = {[styles.aboutYourPlant, {fontWeight: '400', fontSize: 17, color: 'black'}]}>Ideal Sunlight: {route.params?.sunlight}</Text>
+
       </View>
-      <View style={styles.container}>
+      <View style = {styles.circularContainer}>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#0066ff', textShadowColor: 'black', textShadowRadius: 1}]}>Moisture     </Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#33cc33', textShadowColor: 'black', textShadowRadius: 1}]}>Sunlight </Text>
+      </View>
+      <View style={styles.circularContainer}>
         <CircularProgress
           radius={90}
           value={route.params?.moisture} //this will be the value we receive from API
@@ -612,13 +657,12 @@ function AboutPlants({navigation, route}){
           inActiveStrokeColor={'#0066ff'}
           inActiveStrokeOpacity={0.2}
           inActiveStrokeWidth={6}
-          duration={3000}
+          duration={2000}
+          
           //onAnimationComplete={() => setValue(route.params?.sunlight)} //sets the value for next bar
         />
-      <View style = {styles.container}>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Your Sunlight </Text>
-      </View>
-          <CircularProgress
+        
+        <CircularProgress
           radius={90}
           value={route.params?.sunlight} //this will be the value we receive from API
           textColor='#222'
@@ -629,38 +673,32 @@ function AboutPlants({navigation, route}){
           activeStrokeSecondaryColor='#ffff66'
           inActiveStrokeOpacity={0.2}
           inActiveStrokeWidth={6}
-          duration={4000}
+          duration={2000}
         />
-      </View>
+    </View>
       <View style = {styles.infoContainer}>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> About your Plant </Text>
-        <Text style={styles.aboutYourPlant}>Monstera are species of evergreen tropical vines 
-        and shrubs that are native to Central America. They are famous for their 
-        natural leaf-holes, which has led to the rise of their nickname, 
-        Swiss Cheese Plant. The Monstera's leaf-holes are called fenestrations 
-        and are theorized to maximize sun fleck capture on the forest 
-        floor by increasing the spread of the leaf while decreasing the mass of
-         leaf cells to support.</Text>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}>Learn More</Text>
-        <Text style={styles.aboutYourPlant}>Two different species of Monstera are cultivated
-         as houseplants - Monstera deliciosa and Monstera adansonii. Monstera adansonii 
-         is distinguished from M. deliciosa by having longer, tapering leaves, as well as 
-         having completely enclosed leaf holes. Monstera deliciosa leaf holes eventually grow 
-         towards the edge and open up as they mature. </Text>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Sunlight </Text>
-        <Text style={styles.aboutYourPlant}>Thrives in bright to medium indirect light.
-          Not suited for intense, direct sun but can be acclimated to withstand it. </Text>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Humidity </Text>
-        <Text style={styles.aboutYourPlant}>Normal room humidity will do, but prefers 
-          humid conditions if possible. Consider incorporating a fine-mist mister or 
-          humidifier to boost humidity level indoors. </Text>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Soil </Text>
-        <Text style={styles.aboutYourPlant}>Use a well-draining potting mix. Mix in
-          ingredients such as perlite or lava rocks to increase soil aeration as need. </Text>
-        <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Common Problems </Text>
-        <Text style={styles.aboutYourPlant}>The Monstera is an easy-going plant and is generally
-          pest-free. Treat pests as soon as they appear with weekly sprays of a natural pesticide 
-          like neem oil and regular wipe-downs of the plant.</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}> Description </Text>
+        <Text style={styles.aboutYourPlant}>{route.params?.description}</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}>Care</Text>
+        <Text style={styles.aboutYourPlant}>{route.params?.care}</Text>
+        <Text style={styles.aboutYourPlant}>{route.params?.careBullets}</Text>
+        <Text style={styles.aboutYourPlant}>{route.params?.moreCare}</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}> Propagation </Text>
+        <Text style={styles.aboutYourPlant}>{route.params?.propagation}</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}> Possible Problems </Text>
+        <View style = {{marginTop: 32, marginBottom: 100}}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style = {styles.aboutPlantCarousel}>
+              <Image source={route.params?.problemImage2} style={styles.Pictures} resizeMode='cover'></Image>
+              <Text style={[styles.profileText, {alignSelf:'center', fontWeight: '800'}]}>{route.params?.problemImage2Descrip}</Text>
+            </View>
+            <View style = {styles.aboutPlantCarousel}>
+              <Image source={route.params?.problemImage1} style={styles.Pictures} resizeMode='cover'></Image>
+              <Text style={[styles.profileText, {alignSelf:'center', fontWeight: '800'}]}>{route.params?.problemImage1Descrip}</Text>
+            </View> 
+          </ScrollView>
+        </View>
+
             
       </View>
     </ScrollView>
@@ -747,6 +785,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white'
   },
+  circularContainer: {
+    flex: 1,
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: 'white',
+    flexDirection: 'row'
+  },
   profContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -791,6 +836,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     marginTop: 16,
+    backgroundColor: 'white'
   },
   profileText: {
     fontFamily: 'HelveticaNeue',
@@ -809,6 +855,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
     marginBottom: 16,
     fontFamily: 'HelveticaNeue',
+    fontSize: 16
   },
   statsBox: {
     flex: 1,
@@ -833,6 +880,13 @@ const styles = StyleSheet.create({
   mediaImageContainer: {
     width: 175,
     height: 200,
+    borderRadius: 12,
+    overflow: 'hidden',
+    marginHorizontal: 10,
+  },
+  aboutPlantCarousel: {
+    width: 275,
+    height: 300,
     borderRadius: 12,
     overflow: 'hidden',
     marginHorizontal: 10,
@@ -866,8 +920,8 @@ const styles = StyleSheet.create({
         flex: 1,
         width: 332,
         height: 41,
-        marginTop: 0,
-        marginBottom: 50,
+        marginTop: -50,
+        marginBottom: -55,
         alignItems: 'center',
         //transform: [{ scale:0.12}],
         justifyContent: 'space-evenly',
@@ -931,8 +985,9 @@ const styles = StyleSheet.create({
       //transform: [{ scale:0.2}],
       justifyContent: 'space-evenly',
       marginRight: 30,
-      marginLeft: 50,
-      marginBottom: 53
+      marginLeft: 44,
+      marginBottom: 176,
+      
     },
 });
 
