@@ -113,12 +113,10 @@ void loop()
   
   if (avgLight < 15)
   {
-  int r = 255;
-  int g = 244;
-  int b = 0;
-  ledcWrite(c_ledChannel1, blueScale);
-  ledcWrite(c_ledChannel2, greenScale);
-  ledcWrite(c_ledChannel3, redScale);
+    int rgb [3] = {255, 244, 0};
+  ledcWrite(c_ledChannel1, rgb[2]);
+  ledcWrite(c_ledChannel2, rgb[1]);
+  ledcWrite(c_ledChannel3, rgb[0]);
   }
   else 
   {
@@ -130,3 +128,7 @@ void loop()
   ledcWrite(c_ledChannel3, redScale);
   }
 }
+
+
+// TODO translate this to lib, tidy up main{}
+// ? is it easy enough to go thru API? j start with direct to DB.
