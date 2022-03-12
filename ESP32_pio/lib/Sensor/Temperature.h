@@ -5,7 +5,7 @@
 #include <Sensor.h>
 
 // Subclass of Sensor
-class Moisture : public Sensor {
+class Temperature : public Sensor {
     private:
 
     public:

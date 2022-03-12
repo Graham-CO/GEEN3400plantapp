@@ -1,63 +1,28 @@
-#include <Arduino.h>
-
-
-
 // GEEN 3400 Project Code
 // Graham Williams | grwi2594@colorado.edu
 // Bryan Sirner
 // Prototype #1
+#include <Arduino.h>
+#include "MCU.h"
 
 int dataTime = 2;
 int samplingFreq = 10; // Hz
 
 float inputVoltage = 3.3; // Voltage input to the Temp sensor (left pin looking at flat)
-const int c_temperaturePin = 15; // https://learn.adafruit.com/tmp36-temperature-sensor/using-a-temp-sensor
-const int c_soilPin = 2; // Pin on Arduino Data on soil sensor is in
-const int c_lightPin = 4;
-float calibration = 12;
-const int c_ledPin1 = 14;  // BLUE
-const int c_ledPin2 = 12; //  GREEN
-const int c_ledPin3 = 13;  // RED
 
-// setting PWM properties
-const int c_freq = 5000;
-const int c_ledChannel1 = 1;
-const int c_ledChannel2 = 2;
-const int c_ledChannel3 = 3;
-const int c_resolution = 8;
+float calibration = 12;
 
 void setup()
 {
-  Serial.begin(9600);  //Start the serial connection with the computer
-  //to view the result open the serial monitor
-  pinMode(c_temperaturePin, INPUT);
-  pinMode(c_soilPin, INPUT);
-  pinMode(c_lightPin, INPUT);
-  pinMode(c_ledPin1, OUTPUT);
-  pinMode(c_ledPin2, OUTPUT);
-  pinMode(c_ledPin3, OUTPUT);
+  Serial.begin(9600);
 
-  // configure LED PWM functionalitites
-  ledcSetup(c_ledChannel1, c_freq, c_resolution);
-  ledcSetup(c_ledChannel2, c_freq, c_resolution);
-  ledcSetup(c_ledChannel3, c_freq, c_resolution);
-
-  // attach the channel to the GPIO to be controlled
-  ledcAttachPin(c_ledPin1, c_ledChannel1);
-  ledcAttachPin(c_ledPin2, c_ledChannel2);
-  ledcAttachPin(c_ledPin3, c_ledChannel3);
+  // initialize MCU object
+  MCU nodeMCU();
 }
 
 void loop()
 {
-  float avgF = 0;
-  float avgC = 0;
-  float avgSoil = 0;
-  float avgLight = 0;
-  int sumC = 0;
-  int sumF = 0;
-  int lightSum = 0;
-  int soilSum = 0;
+
  
 
 
@@ -120,7 +85,7 @@ void loop()
   }
   else 
   {
-   int redScale = 0;
+  int redScale = 0;
   int greenScale = 0;
   int blueScale = 0;
   ledcWrite(c_ledChannel1, blueScale);
