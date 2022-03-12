@@ -17,21 +17,23 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	//service account
 	sa := option.WithCredentialsFile(path.Join(home, "potbut-d8c82-firebase-adminsdk-8rgls-2054b45578.json"))
-	app, err := firebase.NewApp(context.Background(), nil, sa)
+	// register app with Firebase
+	app, err := firebase.NewApp(context.Background(), nil, sa) // context.Background() pushes to worker threads
 	if err != nil {
 		log.Fatalf("error initializing app: %v\n", err)
 	}
+	// create Firestore client
 	client, err := app.Firestore(context.Background())
 	if err != nil {
 		log.Fatalf("error initializing app: %v\n", err)
 	}
-	defer client.Close()
+	defer client.Close() // close client when main() returns (i.e., app off)
 
-	router := gin.Default()
+	// TODO define custom middleware (output custom error message to user)
+	router := gin.Default() // default logging and recovery
 	router.POST("/plants", plant.CreatePlant(client.Collection("Plants")))
-	router.GET("/users, getUsers") /*use get to associate GET HTTP and /albums path with handler function.
-	passes the NAME of the function, not the result, which you would do by typing getUsers()  */
 
-	router.Run("localhost:50080") //starts the server
+	router.Run("localhost:50080") //starts the server, 8080 was being used
 }
