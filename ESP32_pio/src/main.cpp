@@ -1,63 +1,61 @@
 #include <Arduino.h>
 
-void setup() {
-  // put your setup code here, to run once:
-}
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}//GEEN 3400 Project Code
-//Prototype #1
 
- int dataTime = 2;
- int samplingFreq = 10; // Hz
+// GEEN 3400 Project Code
+// Graham Williams | grwi2594@colorado.edu
+// Bryan Sirner
+// Prototype #1
 
-float InputVoltage = 3.3; // Voltage input to the Temp sensor (left pin looking at flat)
-const int TempPin = 15; // https://learn.adafruit.com/tmp36-temperature-sensor/using-a-temp-sensor
-const int SoilPin = 2; // Pin on Arduino Data on soil sensor is in
-const int LightPin = 4;
-float Calibration = 12;
-const int ledPin = 14;  // BLUE
-const int ledPin2 = 12; //  GREEN
-const int ledPin3 = 13;  // RED
+int dataTime = 2;
+int samplingFreq = 10; // Hz
+
+float inputVoltage = 3.3; // Voltage input to the Temp sensor (left pin looking at flat)
+const int c_temperaturePin = 15; // https://learn.adafruit.com/tmp36-temperature-sensor/using-a-temp-sensor
+const int c_soilPin = 2; // Pin on Arduino Data on soil sensor is in
+const int c_lightPin = 4;
+float calibration = 12;
+const int c_ledPin1 = 14;  // BLUE
+const int c_ledPin2 = 12; //  GREEN
+const int c_ledPin3 = 13;  // RED
 
 // setting PWM properties
-const int freq = 5000;
-const int ledChannel1 = 1;
-const int ledChannel2 = 2;
-const int ledChannel3 = 3;
-const int resolution = 8;
+const int c_freq = 5000;
+const int c_ledChannel1 = 1;
+const int c_ledChannel2 = 2;
+const int c_ledChannel3 = 3;
+const int c_resolution = 8;
 
 void setup()
 {
   Serial.begin(9600);  //Start the serial connection with the computer
   //to view the result open the serial monitor
-  pinMode(TempPin, INPUT);
-  pinMode(SoilPin, INPUT);
-  pinMode(SoilPin, INPUT);
-  pinMode(ledPin, OUTPUT);
-  pinMode(ledPin2, OUTPUT);
-  pinMode(ledPin3, OUTPUT);
+  pinMode(c_temperaturePin, INPUT);
+  pinMode(c_soilPin, INPUT);
+  pinMode(c_lightPin, INPUT);
+  pinMode(c_ledPin1, OUTPUT);
+  pinMode(c_ledPin2, OUTPUT);
+  pinMode(c_ledPin3, OUTPUT);
 
   // configure LED PWM functionalitites
-  ledcSetup(ledChannel1, freq, resolution);
-  ledcSetup(ledChannel2, freq, resolution);
-  ledcSetup(ledChannel3, freq, resolution);
+  ledcSetup(c_ledChannel1, c_freq, c_resolution);
+  ledcSetup(c_ledChannel2, c_freq, c_resolution);
+  ledcSetup(c_ledChannel3, c_freq, c_resolution);
 
   // attach the channel to the GPIO to be controlled
-  ledcAttachPin(ledPin, ledChannel1);
-  ledcAttachPin(ledPin2, ledChannel2);
-  ledcAttachPin(ledPin3, ledChannel3);
+  ledcAttachPin(c_ledPin1, c_ledChannel1);
+  ledcAttachPin(c_ledPin2, c_ledChannel2);
+  ledcAttachPin(c_ledPin3, c_ledChannel3);
 }
 
 void loop()
 {
-  float avgTempF = 0;
-  float avgTempC = 0;
+  float avgF = 0;
+  float avgC = 0;
   float avgSoil = 0;
   float avgLight = 0;
-  int tempSumC = 0;
-  int tempSumF = 0;
+  int sumC = 0;
+  int sumF = 0;
   int lightSum = 0;
   int soilSum = 0;
  
@@ -69,33 +67,30 @@ void loop()
 
 
     //TEMPERATURE SENSOR CODE
-    //TEMPERATURE SENSOR CODE
     //getting the voltage reading from the temperature sensor
-    double reading = analogRead(TempPin);
+    double reading = analogRead(c_temperaturePin);
     //Serial.print(reading); Serial.println(" reading");
 
     // converting that reading to voltage, for 3.3v arduino use 3.3
-    float voltage = reading * InputVoltage;
+    float voltage = reading * inputVoltage;
     voltage /= 4096.0;
 
     // print out the voltage
     //Serial.print(voltage); Serial.println(" volts");
 
     // now print out the temperature
-    float temperatureC = (100.0 * voltage) - 50.0 ; //converting from 10 mv per degree wit 500 mV offset
+    float celsius = (100.0 * voltage) - 50.0 ; //converting from 10 mv per degree wit 500 mV offset
     //to degrees ((voltage - 500mV) times 100)
-    temperatureC += Calibration; //Calibration Value
+    celsius += calibration; //Calibration Value
     //Serial.print(temperatureC); Serial.println(" degrees C");
-    tempSumC += temperatureC;
+    sumC += celsius;
 
     // now convert to Fahrenheit
-    float temperatureF = (temperatureC * 9.0 / 5.0) + 32.0;
+    float fahrenheit = (celsius * 9.0 / 5.0) + 32.0;
     //Serial.print(temperatureF); Serial.println(" degrees F");
-    tempSumF += temperatureF;
+    sumF += fahrenheit;
 
 
-
-    //SOIL SENSOR CODE
     //SOIL SENSOR CODE
     double Wetness = analogRead(SoilPin);
     //Serial.print("Soil Wetness = ");  Serial.println(Wetness);
@@ -111,33 +106,27 @@ void loop()
 
   }
 
-  avgTempF = tempSumF / (dataTime * samplingFreq);
-  avgTempC = tempSumC / (dataTime * samplingFreq);
+  avgF = sumF / (dataTime * samplingFreq);
+  avgC = sumC / (dataTime * samplingFreq);
   avgSoil = soilSum / (dataTime * samplingFreq);
   avgLight = lightSum / (dataTime * samplingFreq);
-
-  Serial.print(avgTempC); Serial.println(" degrees C.");
-  Serial.print(avgTempF); Serial.println(" degrees F.");
-  Serial.print("Soil Wetness = ");  Serial.println(avgSoil);
-  Serial.print("Light = ");  Serial.println(avgLight);
-  Serial.println(); // Prints blank line for easy to read monitor
   
   if (avgLight < 15)
   {
-  int redScale = 255;
-  int greenScale = 244;
-  int blueScale = 0;
-  ledcWrite(ledChannel1, blueScale);
-  ledcWrite(ledChannel2, greenScale);
-  ledcWrite(ledChannel3, redScale);
+  int r = 255;
+  int g = 244;
+  int b = 0;
+  ledcWrite(c_ledChannel1, blueScale);
+  ledcWrite(c_ledChannel2, greenScale);
+  ledcWrite(c_ledChannel3, redScale);
   }
   else 
   {
    int redScale = 0;
   int greenScale = 0;
   int blueScale = 0;
-  ledcWrite(ledChannel1, blueScale);
-  ledcWrite(ledChannel2, greenScale);
-  ledcWrite(ledChannel3, redScale);
+  ledcWrite(c_ledChannel1, blueScale);
+  ledcWrite(c_ledChannel2, greenScale);
+  ledcWrite(c_ledChannel3, redScale);
   }
 }
