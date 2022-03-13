@@ -12,7 +12,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 //import About from './screens/about'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements/dist/input/Input';
-import CircularProgress from 'react-native-circular-progress-indicator';
+import CircularProgress, { CircularProgressWithChild } from 'react-native-circular-progress-indicator';
 import Card from './shared/card';
 import MeetTeamCard from './shared/meetTeamCard';
 
@@ -33,9 +33,9 @@ const App = () => {
                 tabBarStyle:{
                     backgroundColor: '#e6e6e6',
                     position: 'absolute',
-                    bottom: 30,
+                    bottom: 20,
                     marginHorizontal: 20,
-                    height: 60,
+                    height: 50,
                     borderRadius: 10,
                     borderColor: 'gray',
                     shadowColor: '#000',
@@ -66,7 +66,7 @@ const App = () => {
                     tabBarIcon: ({ focused }) => (
                         <View style={{
                             position: "absolute",
-                            top: '50%'
+                            top: '40%'
                         }}>
                             <FontAwesome5
                                 name="address-card"
@@ -94,7 +94,7 @@ const App = () => {
                     tabBarIcon: ({ focused }) => (
                         <View style={{
                             position: "absolute",
-                            top: '50%'
+                            top: '40%'
                         }}>
                             <FontAwesome5
                                 name="search"
@@ -124,7 +124,7 @@ const App = () => {
                     tabBarIcon: ({ focused }) => (
                         <View style={{
                             position: "absolute",
-                            top: '50%',
+                            top: '10%',
                             
                         }}>
                             <FontAwesome5
@@ -157,7 +157,7 @@ const App = () => {
                     tabBarIcon: ({ focused }) => (
                         <View style={{
                             position: "absolute",
-                            top: '50%'
+                            top: '40%'
                         }}>
                             <FontAwesome5
                                 name="bell"
@@ -185,7 +185,7 @@ const App = () => {
                     tabBarIcon: ({ focused }) => (
                         <View style={{
                             position: "absolute",
-                            top: '50%'
+                            top: '40%'
                         }}>
                             <FontAwesome5
                                 name="user-alt"
@@ -210,7 +210,7 @@ const App = () => {
                 height: 2,
                 backgroundColor: '#58d68d',
                 position: 'absolute',
-                bottom: 85,
+                bottom: 65,
                 left: 30,
                 //borderRadius: '.50',
                 transform: [
@@ -240,13 +240,13 @@ function ProfileScreen() {
 
         <View style={{alignSelf: 'center'}}>
           <View style = {styles.profileImage}>
-            <Image source={require('./images/MauiProfilePic.png')} style = {styles.profileImage} resizeMode='center'></Image>
+            <Image source={require('./images/MauiProfilePic.png')} style = {styles.profileImage} resizeMode='contain'></Image>
           </View>
         </View>
 
         <View style = {styles.infoContainer}>
-          <Text style = {[styles.profileText, {fontWeight: '200', fontSize: 36}]}>Maui</Text>
-          <Text style = {[styles.profileText, {color: '#AEB5BC', fontSize: 14}]}>Plant-Enthusiast</Text>
+          <Text style = {[styles.profileText, {fontWeight: '200', fontSize: 36, backgroundColor: '#fffef2'}]}>Maui</Text>
+          <Text style = {[styles.profileText, {color: '#AEB5BC', fontSize: 14, backgroundColor: '#fffef2'}]}>Plant-Enthusiast</Text>
         </View>
 
         <View style = {styles.statsContainer}>
@@ -283,12 +283,12 @@ function ProfileScreen() {
 
         <Text style = {[styles.subText, styles.recent]}>Recent Activity</Text>
 
-        <View style= {{alignItems: 'center'}}>
+        <View style= {{alignItems: 'center', marginBottom: 100}}>
           <View style = {styles.recentItem}>
             <View styles = {styles.recentItemIndicator}></View>
             <View styles = {{width: 250}}>
               <Text styles={styles.profileText}>
-                Started following <Text style = {{fontWeight: '400' }}> Dwyane 'the Rock' Johson</Text> 
+                Started following <Text style = {{fontWeight: '400',}}> Dwyane 'the Rock' Johson</Text> 
               </Text>
             </View>
           </View>
@@ -366,21 +366,21 @@ function PlantScreen({navigation}) {
 
   ]);
   const [plantNameRow3, plantInformationRow3] = useState([
-    { plantName: 'Empty Pot 7', color: 'null', key: '7', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
-    { plantName: 'Empty Pot 8', color: 'null', key: '8', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Weeping Fig', color: 'null', key: '7', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/WeepingFigScaled.png')},
+    { plantName: 'Bunny Ear Cactus', color: 'null', key: '8', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/BunnyEarScaled.png')},
     { plantName: 'Empty Pot 9', color: 'null', key: '9', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
 
   ]);
   const [plantNameRow4, plantInformationRow4] = useState([
-    { plantName: 'Empty Pot 10', color: 'Green', key: '10', moisture: 95, sunlight: 85, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
-    { plantName: 'Empty Pot 11', color: 'Dark Green', key: '11', moisture: 45, sunlight: 35, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
-    { plantName: 'Empty Pot 12', color: 'Orange', key: '12', moisture: 75, sunlight: 65, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 10', color: 'Green', key: '10', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 11', color: 'Dark Green', key: '11', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 12', color: 'Orange', key: '12', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
 
   ]);
   const [plantNameRow5, plantInformationRow5] = useState([
-    { plantName: 'Empty Pot 13', color: 'Green', key: '13', moisture: 95, sunlight: 85, idealMoisture: '90%', image: require('./images/CurrentEmptyPotScaled.png')},
-    { plantName: 'Empty Pot 14', color: 'Dark Green', key: '14', moisture: 45, sunlight: 35, idealMoisture: '40%', image: require('./images/CurrentEmptyPotScaled.png')},
-    { plantName: 'Empty Pot 15', color: 'Orange', key: '15', moisture: 75, sunlight: 65, idealMoisture: '70%', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 13', color: 'Green', key: '13', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 14', color: 'Dark Green', key: '14', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
+    { plantName: 'Empty Pot 15', color: 'Orange', key: '15', moisture: 0, sunlight: 0, idealMoisture: 'null', image: require('./images/CurrentEmptyPotScaled.png')},
 
   ]);
   //Should probably be changed (eventually) to safeAreaView
@@ -474,7 +474,7 @@ function PlantScreen({navigation}) {
                 )}
             />
           </View>
-          <View style = {styles.shelfPic}>
+          <View style = {[styles.shelfPic, {marginBottom: 100}]}>
             <Image source={require('./images/ScaledShelf.png')}></Image>
           </View>
 
@@ -483,29 +483,37 @@ function PlantScreen({navigation}) {
   );
 }
 
+function AddPlants({navigation}) {
+  <View>
+
+  </View>
+
+}
 
 
 //-------------------------------------------------------------------
 //Plant Stack is used to navigate to the respective plant about screen - in the works
 const Stack = createNativeStackNavigator(PlantStack);
-const PlantStack = () => {
+const PlantStack = ({navigation}) => {
   return(
     <Stack.Navigator >
       <Stack.Screen name='PlantScreen' component={PlantScreen} options={{
         title: 'My Garden', //title of page
         headerRight: () => (
-          <FontAwesome5 
+          <TouchableOpacity >
+            <FontAwesome5 
             name = 'plus'
             color = 'white'
             size={20}
-          />
+            />
+          </TouchableOpacity>
         ),
         headerStyle:{
           backgroundColor: '#58d68d' //background color of header
         },
         headerTitleStyle: { //Text options
             color: 'white',
-            fontFamily: 'HelveticaNeue',
+            fontFamily: 'HelveticaNeue', 
             fontWeight: '300',
             fontSize: 20
         },
@@ -513,6 +521,15 @@ const PlantStack = () => {
       }}/>
       <Stack.Screen name='AboutPlants' component={AboutPlants} options={{
         title: 'About your Plant',
+        headerRight: () => (
+          <TouchableOpacity >
+            <FontAwesome5 
+            name = 'pen'
+            color = 'white'
+            size={20}
+            />
+          </TouchableOpacity>
+        ),
         backgroundColor: 'black',
         headerStyle:{
           backgroundColor: '#58d68d'
@@ -567,12 +584,12 @@ const LoginStack = () => {
 //-------------------------------------------------------------------
 function AboutTheTeam({navigation}) {
   return (
-    <ScrollView backgroundColor='white'>
+    <ScrollView backgroundColor='#fffef2'>
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Meet the Team! </Text>
+      <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> Meet the Team </Text>
       <View style = {styles.container}>
         <Text style = {styles.subText}>
-          <Image source={require('./images/Groot.png')} style = {styles.AboutTeamImage} resizeMode='center'></Image>
+          <Image source={require('./images/Groot.png')} style = {styles.AboutTeamImage} resizeMode='contain'></Image>
           Emily
         </Text>
       </View>
@@ -603,7 +620,7 @@ function AboutTheTeam({navigation}) {
 
       <View style = {styles.container}>
         <Text style = {styles.subText}>
-          <Image source={require('./images/Thanos2.png')} style = {styles.AboutTeamImage} resizeMode='center'></Image>
+          <Image source={require('./images/Thanos2.png')} style = {styles.AboutTeamImage} resizeMode='contain'></Image>
           Ethan
         </Text>
       </View>
@@ -612,7 +629,7 @@ function AboutTheTeam({navigation}) {
       </Text>
 
       <Text style={[styles.profileText, {fontWeight: '200', fontSize: 36}]}> The Boring Stuff </Text>
-      <Text style = {styles.subText}>
+      <Text style = {[styles.subText, {marginBottom: 100}]}>
         This is where we will put our credibility
       </Text>
 
@@ -631,16 +648,19 @@ function AboutPlants({navigation, route}){
   const [value, setValue] = useState(0);
   const numPics = route.params?.numPics;
 
-  return(
-    <ScrollView>
-      <View style = {styles.container}>
-        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36}]}>{route.params?.plantName}</Text>
-      </View>
+  /*
       <View style = {styles.circularContainer}>
         <Text style = {[styles.aboutYourPlant, {fontWeight: '400', fontSize: 17, color: 'black'}]}>Ideal Moisture: {route.params?.idealMoisture}</Text>
         <Text style = {[styles.aboutYourPlant, {fontWeight: '400', fontSize: 17, color: 'black'}]}>Ideal Sunlight: {route.params?.sunlight}</Text>
-
       </View>
+  */
+
+  return(
+    <ScrollView>
+      <View style = {styles.container}>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, marginBottom: 20}]}>{route.params?.plantName}</Text>
+      </View>
+    
       <View style = {styles.circularContainer}>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#0066ff', textShadowColor: 'black', textShadowRadius: 1}]}>Moisture     </Text>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#33cc33', textShadowColor: 'black', textShadowRadius: 1}]}>Sunlight </Text>
@@ -658,6 +678,9 @@ function AboutPlants({navigation, route}){
           inActiveStrokeOpacity={0.2}
           inActiveStrokeWidth={6}
           duration={2000}
+          subtitle = 'Ideal: 80-95%'
+          subtitleColor='#222'
+          subtitleFontSize={10}
           
           //onAnimationComplete={() => setValue(route.params?.sunlight)} //sets the value for next bar
         />
@@ -674,9 +697,12 @@ function AboutPlants({navigation, route}){
           inActiveStrokeOpacity={0.2}
           inActiveStrokeWidth={6}
           duration={2000}
+          subtitle = 'Ideal: 50-70%'
+          subtitleColor='#222'
+          subtitleFontSize={10}
         />
     </View>
-      <View style = {styles.infoContainer}>
+      <View style = {styles.plantInfoContainer}>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}> Description </Text>
         <Text style={styles.aboutYourPlant}>{route.params?.description}</Text>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}>Care</Text>
@@ -722,10 +748,10 @@ function LoginScreen({navigation}) {
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, marginBottom: 10}]}>Login</Text>
     </View>
       <View style={styles.email}>
-        <Input placeholder="Username" onChangeText={(text)=> console.log(text)} />
+        <Input placeholder="Username" placeholderTextColor={'gray'}  onChangeText={(text)=> console.log(text)} />
       </View>
       <View style={styles.password}>
-        <Input placeholder="Password" onChangeText={(text)=> console.log(text)} />
+        <Input placeholder="Password" placeholderTextColor={'gray'} onChangeText={(text)=> console.log(text)} />
       </View>
     <View style = {{flexDirection: 'row', marginTop: 60}}>
       <Card>
@@ -756,7 +782,7 @@ function LoginScreen({navigation}) {
 //Notification Screen (may be changed)
 function NotificationScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Text style={styles.subText}>Notifications???? idk what this will be</Text>
       <Text style={styles.subText}>My thoughts are that you will need a place to 
       check where current or previous notificaitons have gone - or if app notifcations 
@@ -777,24 +803,25 @@ function Search() {
 }
 
 
+
 //Style sheet for all our different styles used across the app
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center', 
     alignItems: 'center',
-    backgroundColor: 'white'
+    backgroundColor: '#fffef2'
   },
   circularContainer: {
     flex: 1,
     justifyContent: 'center', 
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#fffef2',
     flexDirection: 'row'
   },
   profContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#fffef2',
   },
   titleBar: {
     flexDirection: 'row',
@@ -837,6 +864,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 16,
     backgroundColor: 'white'
+  },
+  plantInfoContainer: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fffef2'
   },
   profileText: {
     fontFamily: 'HelveticaNeue',
@@ -975,6 +1007,7 @@ const styles = StyleSheet.create({
       right: 30,
       // alignSelf: 'center', 
       flex: 1,
+      marginTop: -70,
       resizeMode: 'contain'
   
     },
