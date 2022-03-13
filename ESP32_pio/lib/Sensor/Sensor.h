@@ -1,13 +1,10 @@
-// Sensor class contains: stored sensor data, RGB data
+// Sensor class contains: stored sensor data, color data
 //    is a superclass of: Temperature, Moisture, Light
-
-#ifndef SENSOR_H
-#define SENSOR_H
-
 #include "Arduino.h"
 #include <string.h>
 #include <stdio.h>
 using namespace std;
+
 
 #include <MCU.h>
 #include <Moisture.h> 
@@ -30,13 +27,16 @@ class Sensor : public MCU {
         virtual double setFreq() const = 0; // pure virtual, implement in subclass
                                             // can't make Sensor object
 
-        // RGB data - changes based on sensor type & value
-        static int rgb [3];
+        // color data - changes based on sensor type & value
+        static vector<int> color[3]; //stored as RGB only (for now)
         string sensorType; // determines thresholds
-        // update rgb data
-        virtual int updateRGB(float (&avgData), string sensorType) = 0;
-        // reset rgb data
-        int resetRGB(int (&rgb)[3]);
+        // update RGB data
+        virtual int updateColor(float (&avgData), string sensorType) = 0;
+        // reset RGB data
+        void resetColor(vector<int> &color) {this->color = {0,0,0};};
+        
+        // destructor - virtual ensures base and derived get destroyed
+        virtual ~Sensor() = 0;
 };
 
-#endif
+Sensor::~Sensor() {}
