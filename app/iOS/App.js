@@ -352,7 +352,7 @@ function PlantScreen({navigation}) {
     problemImage2Descrip: 'Under / Over Watering',
   },
 
-    { plantName: 'Pothos', color: 'Orange', key: '3', moisture: 75, sunlight: 65, idealMoisture: '70%', image: require('./images/PothosScaled2.png'),
+    { plantName: 'Pothos', color: 'Orange', key: '3', moisture: 75, sunlight: 5, idealMoisture: '70%', image: require('./images/PothosScaled2.png'),
     description: 
     'Pothos is one of the most common houseplants that originates from the asian main continent as well as on many pacific islands. These plants are a vine that is part of the Araceae family. These are a vine that are used to climbing up trees and cliff sides and are limited to the size of the surface that they are climbing. There are several different species of these and have unique different variegation options. If your plant has a lot of variegation it will need more sunlight. It is recommended that you get a climbing pole for these plants to climb up on.',
     care:
@@ -493,6 +493,22 @@ function AddPlants({navigation}) {
   </View>
 
 }
+function AboutMoisture({navigation}) {
+  return(
+    <View>
+      <Text>How do we calculate our moisture?</Text>
+    </View>
+  );
+}
+
+function AboutSunlight({navigation}) {
+  return(
+    <View>
+      <Text>How do we calculate our Sunlight?</Text>
+    </View>
+  );
+}
+
 
 
 //-------------------------------------------------------------------
@@ -545,6 +561,34 @@ const PlantStack = ({navigation}) => {
           fontSize: 20
       },
         headerTintColor: 'white' //for back button color
+        }}/>
+
+        <Stack.Screen name='AboutMoisture' component={AboutMoisture} options={{
+        title: 'Moisture Info', //title of page
+        headerStyle:{
+          backgroundColor: '#58d68d' //background color of header
+        },
+        headerTitleStyle: { //Text options
+            color: 'white',
+            fontFamily: 'HelveticaNeue', 
+            fontWeight: '300',
+            fontSize: 20
+        },
+        headerTintColor: 'white'
+      }}/>
+
+      <Stack.Screen name='AboutSunlight' component={AboutSunlight} options={{
+              title: 'Sunlight Info', //title of page
+              headerStyle:{
+                backgroundColor: '#58d68d' //background color of header
+              },
+              headerTitleStyle: { //Text options
+                  color: 'white',
+                  fontFamily: 'HelveticaNeue', 
+                  fontWeight: '300',
+                  fontSize: 20
+              },
+              headerTintColor: 'white'
         }}/>
     </Stack.Navigator>
   );
@@ -711,29 +755,30 @@ function AboutPlants({navigation, route}){
       </View>
     
       <View style = {styles.circularContainer}>
-      <PlantNavCard>
         <FontAwesome5 
             name = 'cloud-rain'
-            color = 'black'
+            color = '#52575d'
             size={20}
             />
-        </PlantNavCard>
-        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 26, marginBottom: 0, marginLeft: 0, marginRight: 40}]}>Moisture</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 26, marginBottom: 0, marginLeft: 5, marginRight: 80}]}>Moisture</Text>
 
-        <PlantNavCard>
+
         <FontAwesome5 
             name = 'cloud-sun'
-            color = 'black'
+            color = '#52575d'
             size={20}
             />
-        </PlantNavCard>
-        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 26, marginBottom: 0, marginLeft: 0}]}>Sunlight</Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 26, marginBottom: 0, marginLeft: 5}]}>Sunlight</Text>
 
       </View>
-
-      
       <View style={styles.circularContainer}>
         <ProgressCard>
+        <FontAwesome5
+            name = 'info-circle'
+            color = 'white'
+            size={15}
+            onPress={() => navigation.navigate('AboutMoisture')}
+        />
         <CircularProgress
           radius={70}
           value={route.params?.moisture} //this will be the value we receive from API
@@ -759,6 +804,12 @@ function AboutPlants({navigation, route}){
         </ProgressCard>
         
         <ProgressCard>
+        <FontAwesome5
+            name = 'info-circle'
+            color = 'white'
+            size={15}
+            onPress={() => navigation.navigate('AboutSunlight')}
+        />
         <CircularProgress
           radius={70}
           value={route.params?.sunlight} //this will be the value we receive from API
@@ -925,7 +976,7 @@ function LoginScreen({navigation}) {
 
   return (
   <ScrollView >
-    <SafeAreaView style={[styles.loginContainer, {backgroundColor: 'white'}]}>
+    <SafeAreaView style={[styles.loginContainer, {backgroundColor: '#fffef2'}]}>
       <Image source={require('./images/TrellisLogo.png')} style = {[styles.AboutTeamImage, {height: height * 0.28}]} resizeMode='contain'></Image>
       <CustomInput placeholder="Username" value={username} setValue={setUsername}/>
       <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
@@ -1092,7 +1143,6 @@ const styles = StyleSheet.create({
     color: 'gray'
   },
   circularContainer: {
-    flex: 1,
     justifyContent: 'center', 
     alignItems: 'center',
     backgroundColor: '#fffef2',
