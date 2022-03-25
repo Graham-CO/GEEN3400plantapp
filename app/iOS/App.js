@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground, Alert} from 'react-native';
+import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground, Alert, useWindowDimensions, Pressable} from 'react-native';
 //import Navigator from './routes/homeStack';
 import { NavigationContainer, useLinkProps } from '@react-navigation/native';
 import 'react-native-gesture-handler'
@@ -15,6 +15,10 @@ import { Input } from 'react-native-elements/dist/input/Input';
 import CircularProgress, { CircularProgressWithChild } from 'react-native-circular-progress-indicator';
 import Card from './shared/card';
 import MeetTeamCard from './shared/meetTeamCard';
+import PlantNavCard from './shared/PlantHeaderNav';
+import ProgressCard from './shared/progressCard';
+import { onChange } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
@@ -312,13 +316,13 @@ function ProfileScreen() {
 function PlantScreen({navigation}) {
 
   const [plantNameRow1, plantInformationRow1] = useState([
-    { plantName: 'Snake Plant', color: 'Green', key: '1', moisture: 95, sunlight: 85, idealMoisture: '90%', image: require('./images/SnakeScaled2.png'), 
+    { plantName: 'Snake Plant', color: 'Green', key: '1', moisture: 95, sunlight: 3, idealMoisture: '90%', image: require('./images/SnakeScaled2.png'), 
     description: 
     'Snake plants originate in the rocky and dry regions of Central Africa. There are a multitude of snake plant varieties however the most common are the: Sansevieria Trifasciata, Sansevieria Cylindrica, and Sansevieria Futura  Robusta. All of these plants belong to the same family and can grow to be several feet tall. They are very firm plants and act very similar to succulents because they are succulents.',
     care:
-    'Although this is a succulent it is recommended that it does not get direct sunlight because that can lead to brown burned spots on the leaves. The Snake plant will let you know when it has too much water.',
+    'Although this is a succulent it is recommended that it does not get direct sunlight because that can lead to brown burned spots on the leaves. The Snake plant will let you know when it has too much water. \n \n',
     careBullets:
-    '\u25cf Water: Thoroughly water once the pot is dry \n \n \u25cf Soil: Use succulent soil or a mix of quick drying soil \n \n \u25cf Sunlight: Bright indirect light for most of the day \n \n \u25cf Fungus Problems: Limit the amount of water that you are using and acquire some fungicide',
+    '\u25cf Water: Thoroughly water once the pot is dry \n \n \u25cf Soil: Use succulent soil or a mix of quick drying soil \n \n \u25cf Sunlight: Bright indirect light for most of the day \n \n \u25cf Fungus Problems: Limit the amount of water that you are using and acquire some fungicide \n \n',
     moreCare:
     'This plant is very prone to overwatering and root rot. If you have this plant selected the app will notify you if it senses that the soil has been too wet for too long. If this occurs than it suggested to use a succulent mix or to repot the soil and to use rocks on the base of your pot for better drainage',
     propagation:
@@ -331,13 +335,13 @@ function PlantScreen({navigation}) {
 
   },
 
-    { plantName: 'Spider Plant', color: 'Dark Green', key: '2', moisture: 45, sunlight: 35, idealMoisture: '40%', image: require('./images/SpiderScaled2.png'),
+    { plantName: 'Spider Plant', color: 'Dark Green', key: '2', moisture: 45, sunlight: 7, idealMoisture: '40%', image: require('./images/SpiderScaled2.png'),
     description: 
     'This plant originates from the African Tropical Rainforest. However, despite its vast number of variants that arose from here it is very prone to being overwatered. This species is called the Chlorophytum Comosum and is one of the most common indoor houseplants. It got this way because of its remarkable ability to reproduce. It will grow vines that have smaller baby plants on it. This plant has several different types of variegation and',
     care:
-    'Although this is indiginous to the tropical rainforests, these plants need to have their soil thoroughly dry before watering it again',
+    'Although this is indiginous to the tropical rainforests, these plants need to have their soil thoroughly dry before watering it again \n \n',
     careBullets:
-    "\u25cf Water: Thoroughly water once the pot is dry \n \n \u25cf Soil: Use succulent soil or a mix of quick drying soil \n \n \u25cf Sunlight: Bright indirect light for most of the day",
+    "\u25cf Water: Thoroughly water once the pot is dry \n \n \u25cf Soil: Use succulent soil or a mix of quick drying soil \n \n \u25cf Sunlight: Bright indirect light for most of the day \n \n",
     moreCare:
     "This plant is very prone to overwatering and root rot. If you have this plant selected the app will notify you if it senses that the soil has been too wet for too long. If this occurs than it suggested to use a succulent mix or to repot the soil and to use rocks on the base of your pot for better drainage. Brown tips signal that the plant is getting too much or too little water. Please refer to the app's historical tracking of how wet the soil is to determine how to proceed.",
     propagation:
@@ -352,9 +356,9 @@ function PlantScreen({navigation}) {
     description: 
     'Pothos is one of the most common houseplants that originates from the asian main continent as well as on many pacific islands. These plants are a vine that is part of the Araceae family. These are a vine that are used to climbing up trees and cliff sides and are limited to the size of the surface that they are climbing. There are several different species of these and have unique different variegation options. If your plant has a lot of variegation it will need more sunlight. It is recommended that you get a climbing pole for these plants to climb up on.',
     care:
-    'These plants are used to getting a lot of water. They like to have their soil very moist.',
+    'These plants are used to getting a lot of water. They like to have their soil very moist. \n \n',
     careBullets:
-    '\u25cf Water: Thoroughly when the top inch of soil has become dry \n \n \u25cf Soil: Use a tropical or flower based pot mix. Include wood chips for best results. This will retain more moisture. \n \n \u25cf Sunlight: Bright indirect light for most of the day. If you have a highly variegated species be sure that it gets a few hours of direct sunlight every day',
+    '\u25cf Water: Thoroughly when the top inch of soil has become dry \n \n \u25cf Soil: Use a tropical or flower based pot mix. Include wood chips for best results. This will retain more moisture. \n \n \u25cf Sunlight: Bright indirect light for most of the day. If you have a highly variegated species be sure that it gets a few hours of direct sunlight every day \n \n',
     propagation:
     "These propagate in nature with flowers, however for a plant enthusiast the most common way is to take cuttings of the plant around the node area. "},
 
@@ -554,8 +558,9 @@ const LoginStack = () => {
     <Stack.Navigator >
       <Stack.Screen name='Login Screen' component={LoginScreen} options={{
         title: 'Login', //title of page
+        headerShown: false,
         headerStyle:{
-          backgroundColor: '#58d68d' //background color of header
+          backgroundColor: '#58d68d', //background color of header
         },
         headerTitleStyle: { //Text options
             color: 'white',
@@ -563,6 +568,9 @@ const LoginStack = () => {
             fontWeight: '300',
             fontSize: 20
         },
+        contentStyle:{
+          backgroundColor: 'white'
+        }
       }}/>
       <Stack.Screen name='AboutTheTeam' component={AboutTheTeam} options={{
         title: 'About the Team',
@@ -578,6 +586,23 @@ const LoginStack = () => {
       },
         headerTintColor: 'white' //for back button color
         }}/>
+        <Stack.Screen name='SignUpScreen' component={TheSignUpScreen} options={{
+        headerShown: false,
+        headerStyle:{
+          backgroundColor: '#58d68d'
+        },
+        headerTitleStyle: {
+          color: 'white',
+          fontFamily: 'HelveticaNeue',
+          fontWeight: '300',
+          fontSize: 20
+      },
+      contentStyle:{
+        backgroundColor: 'white'
+      },
+        headerTintColor: 'white' //for back button color
+        }}/>
+
     </Stack.Navigator>
   );
 }
@@ -643,6 +668,7 @@ function AboutTheTeam({navigation}) {
 
 //About screen for when you click on a plant
 
+
 function AboutPlants({navigation, route}){
 
   const [value, setValue] = useState(0);
@@ -655,6 +681,29 @@ function AboutPlants({navigation, route}){
       </View>
   */
 
+      /* 
+      <View style = {styles.circularContainer}>
+          <PlantNavCard>
+          <Button
+              title = 'Moisture'
+              color = 'white'
+            />
+          </PlantNavCard>
+          <PlantNavCard>
+          <Button
+              title = 'Sunlight'
+              color = 'white'
+            />
+          </PlantNavCard>
+          <PlantNavCard>
+          <Button
+              title = 'Temperature'
+              color = 'white'
+            />
+          </PlantNavCard>
+        </View>
+      */
+
   return(
     <ScrollView>
       <View style = {styles.container}>
@@ -662,55 +711,84 @@ function AboutPlants({navigation, route}){
       </View>
     
       <View style = {styles.circularContainer}>
-        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#0066ff', textShadowColor: 'black', textShadowRadius: 1}]}>Moisture     </Text>
-        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#33cc33', textShadowColor: 'black', textShadowRadius: 1}]}>Sunlight </Text>
+      <PlantNavCard>
+        <FontAwesome5 
+            name = 'cloud-rain'
+            color = 'black'
+            size={20}
+            />
+        </PlantNavCard>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 26, marginBottom: 0, marginLeft: 0, marginRight: 40}]}>Moisture</Text>
+
+        <PlantNavCard>
+        <FontAwesome5 
+            name = 'cloud-sun'
+            color = 'black'
+            size={20}
+            />
+        </PlantNavCard>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 26, marginBottom: 0, marginLeft: 0}]}>Sunlight</Text>
+
       </View>
+
+      
       <View style={styles.circularContainer}>
+        <ProgressCard>
         <CircularProgress
-          radius={90}
+          radius={70}
           value={route.params?.moisture} //this will be the value we receive from API
           textColor='#222'
           fontSize={20}
           valueSuffix={'%'}
-          activeStrokeColor={'#0066ff'}
-          activeStrokeSecondaryColor={'#cc33ff'}
-          inActiveStrokeColor={'#0066ff'}
+          activeStrokeColor={'white'}
+          //activeStrokeSecondaryColor={'#cc33ff'}
+          inActiveStrokeColor={'black'}
           inActiveStrokeOpacity={0.2}
           inActiveStrokeWidth={6}
-          duration={2000}
+          duration={4000}
           subtitle = 'Ideal: 80-95%'
           subtitleColor='#222'
           subtitleFontSize={10}
           
           //onAnimationComplete={() => setValue(route.params?.sunlight)} //sets the value for next bar
         />
+        </ProgressCard>
+            
+        <ProgressCard>
+          
+        </ProgressCard>
         
+        <ProgressCard>
         <CircularProgress
-          radius={90}
+          radius={70}
           value={route.params?.sunlight} //this will be the value we receive from API
           textColor='#222'
           fontSize={20}
-          valueSuffix={'%'}
-          inActiveStrokeColor='#33cc33'
-          activeStrokeColor={'#33cc33'}
-          activeStrokeSecondaryColor='#ffff66'
+          valueSuffix={' hours'}
+          inActiveStrokeColor='black'
+          activeStrokeColor={'white'}
+          //activeStrokeSecondaryColor='black'
           inActiveStrokeOpacity={0.2}
           inActiveStrokeWidth={6}
-          duration={2000}
-          subtitle = 'Ideal: 50-70%'
+          duration={4000}
+          subtitle = 'Ideal: 8 hours'
           subtitleColor='#222'
           subtitleFontSize={10}
+          maxValue = {8}
         />
+        </ProgressCard>
+      
     </View>
       <View style = {styles.plantInfoContainer}>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}> Description </Text>
-        <Text style={styles.aboutYourPlant}>{route.params?.description}</Text>
+        <Text style={styles.textComponentStyle}>{route.params?.description}</Text>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}>Care</Text>
-        <Text style={styles.aboutYourPlant}>{route.params?.care}</Text>
-        <Text style={styles.aboutYourPlant}>{route.params?.careBullets}</Text>
-        <Text style={styles.aboutYourPlant}>{route.params?.moreCare}</Text>
+          <Text style={styles.textComponentStyle}>{route.params?.care}
+          <Text style={styles.textComponentStyle}>{route.params?.careBullets}</Text>
+          <Text style={styles.textComponentStyle}>{route.params?.moreCare}</Text>
+          </Text>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}> Propagation </Text>
-        <Text style={styles.aboutYourPlant}>{route.params?.propagation}</Text>
+        <Text style={styles.textComponentStyle}>{route.params?.propagation}</Text>
         <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, color: '#58d68d'}]}> Possible Problems </Text>
         <View style = {{marginTop: 32, marginBottom: 100}}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -731,21 +809,20 @@ function AboutPlants({navigation, route}){
   );
 }
 
-//Login Screen
-function LoginScreen({navigation}) {
-  const image = "../images/background1.jpeg";
-  return (
+/*
     <SafeAreaView style={styles.container}>
-    <ImageBackground source = {image}></ImageBackground>
-    <MeetTeamCard>
-      <Button 
-      title='Meet The Team' 
-      onPress={() => navigation.navigate('AboutTheTeam')}
-      color = 'white'
-      />
-    </MeetTeamCard>
-    <View style={styles.text1}>
-        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, marginBottom: 10}]}>Login</Text>
+      <MeetTeamCard>
+        <Button 
+        title='Meet The Team' 
+        onPress={() => navigation.navigate('AboutTheTeam')}
+        color = 'white'
+        />
+      </MeetTeamCard>
+    <View style = {styles.container}>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 20, marginBottom: 5, textAlign: 'center'}]}> Login or create an account </Text>
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 16, marginBottom: 20, textAlign: 'center'}]}> We reccomend you create an account to save all of your plant data and changes. </Text>
+
+        <Text style={[styles.profileText, {fontWeight: '400', fontSize: 36, marginBottom: 0}]}>Login</Text>
     </View>
       <View style={styles.email}>
         <Input placeholder="Username" placeholderTextColor={'gray'}  onChangeText={(text)=> console.log(text)} />
@@ -776,8 +853,149 @@ function LoginScreen({navigation}) {
       </View>
     
       </SafeAreaView>
+
+*/
+
+const CustomButton = ({onPress, text, type, bgColor, fgColor}) => {
+  return(
+    <Pressable onPress={onPress} style ={[styles.signInButtonContainer, styles[`signInButtonContainer${type}`], bgColor ? {backgroundColor: bgColor} : {}]}>
+      <Text style = {[styles.signInText, styles[`signInText${type}`], fgColor ? {color: fgColor} : {}]}>{text}</Text>
+    </Pressable>
   );
 }
+const CustomButtonTwo = ({onPress, text, type, bgColor, fgColor}) => {
+  return(
+    <Pressable onPress={onPress} style ={[styles.ourTeamContainer, styles[`signInButtonContainer${type}`], bgColor ? {backgroundColor: bgColor} : {}]}>
+      <Text style = {[styles.signInText, styles[`signInText${type}`], fgColor ? {color: fgColor} : {}]}>{text}</Text>
+    </Pressable>
+  );
+}
+
+const onSignInPressed = () => {
+  console.warn('Sign In');
+}
+
+const onSignInFacebook = () => {
+  console.warn('Facebook Sign In');
+}
+
+const onSignInGoogle = () => {
+  console.warn('Google Sign In');
+}
+
+const onSignInApple = () => {
+  console.warn('Apple Sign In');
+}
+
+const onForgotPasswordPressed = () => {
+  console.warn('Forgot Password');
+}
+
+const onSignUpPressed = () => {
+  console.warn('Sign Up Pressed');
+  navigation.navigate('SignUpScreen');
+}
+
+const onRegisterPressed = () => {
+  console.warn('Sign Up Pressed');
+}
+ 
+const CustomInput = ({value, setValue, placeholder, secureTextEntry}) => {
+  const [currentValue, setCurrentValue] = useState(`${value}`);
+ return (
+   <View style = {styles.customInputContainer}>
+     <TextInput 
+     value={currentValue}
+     onChangeText={v => setCurrentValue(v)}
+     onEndEditing= {() => setValue(currentValue)}
+     placeholder={placeholder} 
+     placeholderTextColor={'gray'} 
+     secureTextEntry={secureTextEntry}
+     style = {styles.cusInput}/>
+   </View>
+ );
+};
+
+
+//Login Screen
+function LoginScreen({navigation}) {
+    const {height} = useWindowDimensions();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+  return (
+  <ScrollView >
+    <SafeAreaView style={[styles.loginContainer, {backgroundColor: 'white'}]}>
+      <Image source={require('./images/TrellisLogo.png')} style = {[styles.AboutTeamImage, {height: height * 0.28}]} resizeMode='contain'></Image>
+      <CustomInput placeholder="Username" value={username} setValue={setUsername}/>
+      <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
+      <CustomButton text="Sign In" onPress={onSignInPressed} type='Primary'/>
+
+      <CustomButton text="Forgot Password?" onPress={onForgotPasswordPressed} type='Teritary'/>
+      <CustomButton text="Sign In with Facebook" onPress={onSignInFacebook} type='Primary' bgColor='#E7EAF4' fgColor='#4765A9'/>
+      <CustomButton text="Sign In with Google" onPress={onSignInGoogle} type='Primary' bgColor='#FAE9EA' fgColor='#DD4D44'/>
+      <CustomButton text="Sign In with Apple" onPress={onSignInApple} type='Primary' bgColor='#e3e3e3' fgColor='#363636'/>
+
+      <CustomButton text="Don't have an account?" onPress={() => navigation.navigate('SignUpScreen')} type='Teritary'/>
+
+      <View style = {{flex: 1}}>
+        <Text style = {{color: 'white'}}> \n</Text>
+        <Text style = {{color: 'white'}}> \n</Text>
+        <Text style = {{color: 'white'}}> \n</Text>
+        <Text style = {{color: 'white'}}> \n</Text>
+
+      </View>
+
+    </SafeAreaView>
+    </ScrollView>
+
+  );
+}
+
+function TheSignUpScreen({navigation}) {
+  const {height} = useWindowDimensions();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+return (
+<ScrollView >
+  <SafeAreaView style={[styles.loginContainer, {backgroundColor: 'white'}]}>
+    <View style = {styles.backButton}>
+      <FontAwesome5
+        name="angle-left"
+        size={30}
+        color={'black'}
+        onPress={() => navigation.navigate('Login Screen')}
+      ></FontAwesome5>
+      <Text style = {[styles.subText, {marginTop: 8, marginLeft: 5, fontSize: 14}]} onPress={() => navigation.navigate('Login Screen')}>Back</Text>
+    </View>
+  <Text style={[styles.profileText, {fontWeight: '400', fontSize: 30, color: '#58d68d', marginTop: 20}]}> Create an Account </Text>
+    <CustomInput placeholder="Username" value={username} setValue={setUsername}/>
+    <CustomInput placeholder="Email" value={email} setValue={setEmail}/>
+    <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
+    <CustomInput placeholder="Confirm Password" value={confirmPassword} setValue={setConfirmPassword} secureTextEntry={true}/>
+
+    <CustomButton text="Register" onPress={onRegisterPressed} type='Primary'/>
+
+    <Text style={styles.registerComponentStyle}>By resgistering, you agree to our Terms of Use and Privacy Policy</Text>
+    <CustomButton text="Register with Facebook" onPress={onSignInFacebook} type='Primary' bgColor='#E7EAF4' fgColor='#4765A9'/>
+    <CustomButton text="Register with Google" onPress={onSignInGoogle} type='Primary' bgColor='#FAE9EA' fgColor='#DD4D44'/>
+    <CustomButton text="Register with Apple" onPress={onSignInApple} type='Primary' bgColor='#e3e3e3' fgColor='#363636'/>
+
+    <CustomButton text="Already have an account?" onPress={() => navigation.navigate('Login Screen')} type='Teritary'/>
+    <View style = {{flex: 1, paddingBottom: 60}}>
+      <Text style = {{color: 'white'}}> \n</Text>
+
+    </View>
+
+  </SafeAreaView>
+  </ScrollView>
+
+);
+}
+
 
 //Notification Screen (may be changed)
 function NotificationScreen() {
@@ -812,6 +1030,67 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fffef2'
   },
+  backButton: {
+    marginLeft: '-80%',
+    flexDirection: 'row'
+  },
+  loginContainer: {
+    flex: 1,
+    //justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: '#fffef2'
+  },
+  customInputContainer: {
+    backgroundColor: 'white',
+    width: '80%',
+    borderColor: '#e8e8e8',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    marginVertical: 5,
+    flexDirection: 'row'
+  },
+  cusInput: {
+    
+  },
+  iconStyle: {
+    borderRadius: 2,
+    borderWidth: 0.5,
+
+  },
+  signInButtonContainer: {
+    width: '90%',
+    padding: 15,
+    marginVertical: 5,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  ourTeamContainer: {
+    width: '25%',
+    padding: 10,
+    marginVertical: 5,
+    alignItems: 'center',
+    borderRadius: 5,
+    marginLeft: '40%'
+  },
+  signInButtonContainerPrimary: {
+    backgroundColor: '#58d68d',
+
+  },
+  signInButtonContainerTeritary: {
+
+  },
+  signInText :{
+    fontWeight: 'bold',
+    color: 'white'
+  },
+  signInTextPrimary: {
+
+  },
+  signInTextTeritary: {
+    color: 'gray'
+  },
   circularContainer: {
     flex: 1,
     justifyContent: 'center', 
@@ -840,6 +1119,33 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 50,
+  },
+  textComponentStyle: {
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#58d68d',
+    color: '#fff',
+    padding: 2,
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 10,
+    fontFamily: 'HelveticaNeue',
+    color: '#52575d',
+    fontWeight: '400',
+
+  },
+  registerComponentStyle: {
+      borderRadius: 5,
+      //borderWidth: 2,
+      //borderColor: 'black',
+      color: '#fff',
+      padding: 2,
+      fontSize: 10,
+      textAlign: 'center',
+      margin: 10,
+      fontFamily: 'HelveticaNeue',
+      color: '#52575d',
+      fontWeight: '400',
   },
   plantText: {
       color: 'white',
@@ -922,8 +1228,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
     marginHorizontal: 10,
+    borderWidth: 2,
+    borderColor: '#58d68d'
   },
   Pictures: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+  },
+  TrellisLogo: {
     flex: 1,
     width: undefined,
     height: undefined,
@@ -985,8 +1298,8 @@ const styles = StyleSheet.create({
   
     },
     email:{
-      top: 75,
       // right: 200,
+      marginTop: -40,
       alignSelf: 'center', 
       width: 250,
       // flex: 1,
@@ -994,7 +1307,6 @@ const styles = StyleSheet.create({
   
     },
     password: {
-      top: 75,
       // right: -50,
       alignSelf: 'center',
       width: 250,

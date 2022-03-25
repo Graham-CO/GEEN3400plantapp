@@ -18,17 +18,17 @@ that we see behind the button to make it look better.
 */
 const styles = StyleSheet.create({
     card: {
-        borderRadius: 20,
+        borderRadius: 30,
         elevation: 3,
-        shadowOffset: {width: 5, height: 5}, //offset of shadow
+        shadowOffset: {width: 1, height: 1}, //offset of shadow
         shadowColor: '#333',
         shadowOpacity: 0.3, //opacity of shadow below button
         shadowRadius: 1, //shadow radius
         marginHorizontal: 4, //distance bewteen next object horizontally
         marginVertical: 6, //distance between next object vertically
         backgroundColor: '#58d68d', //background color of card
-        marginRight: 40,
-        marginLeft: 40,
+        marginLeft: 0,
+        marginRight: 10
     },
     cardContent: {
         marginHorizontal: 10, //width of card

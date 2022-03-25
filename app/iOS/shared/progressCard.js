@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 4, //distance bewteen next object horizontally
         marginVertical: 6, //distance between next object vertically
         backgroundColor: '#58d68d', //background color of card
-        marginRight: 40,
-        marginLeft: 40,
+        marginRight: 5,
+        marginLeft: 5,
     },
     cardContent: {
         marginHorizontal: 10, //width of card

@@ -4,9 +4,9 @@ import Home from '../screens/home';
 import Plants from '../screens/plants';
 import About from '../screens/about';
 import Bluetooth from "../screens/bluetooth";
-import Description from "../screens/description";
 
 const screens = {
+    /*
     Home: {
         screen: Home,
         navigationOptions: {
@@ -34,6 +34,7 @@ const screens = {
             },
         }
     },
+    */
     About: {
         screen: About,
         navigationOptions: {
@@ -61,20 +62,6 @@ const screens = {
             }
         }
     },
-    Description:{
-        screen: Description,
-        navigationOptions: {
-            title: 'Description',
-            headerStyle: {
-                backgroundColor: '#58d68d',
-                //height: 91
-            },
-            headerTitleStyle: {
-                color: 'white',
-            }
-        }
-
-    }
 }
 
 const HomeStack = createStackNavigator(screens);
