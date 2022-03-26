@@ -1,5 +1,7 @@
 // Sensor class contains: stored sensor data, color data
 //    is a superclass of: Temperature, Moisture, Light
+#ifndef SENSOR_H
+#define SENSOR_H
 #include "Arduino.h"
 #include <string.h>
 #include <stdio.h>
@@ -7,36 +9,84 @@ using namespace std;
 
 
 #include <MCU.h>
-#include <Moisture.h> 
-#include <Temperature.h>
-#include <Light.h>
 
 
 // TODO push average to Firestore
 // ? Measurement units? 
-// ? Should sensorType belong to Sensor or no?
-// Subclass of MCU
-class Sensor : public MCU {
-    protected: Sensor(); // can't instantitate Sensor
+// Abstract class sensor contains: 
+//           avgData - average data that is pushed to DB and flushed, only Sensor methods access this
+//           dataAccumulator - data gathered from one sensor (to be averaged), flushed after avgData pushes to DB
+class Sensor
+{
+    protected: 
+        Sensor(); // can't instantitate Sensor
     public:
         // {temperature (F), light (idk unit), moisture (idk)}
         float avgData = 0.0; 
         int dataAccumulator = 0;
 
         // set sampling frequency
-        virtual double setFreq() const = 0; // pure virtual, implement in subclass
+        virtual void setFreq() const = 0; // pure virtual, implement in subclass
                                             // can't make Sensor object
 
-        // color data - changes based on sensor type & value
+        // color data - changes based on color value set by different sensors
         static vector<int> color[3]; //stored as RGB only (for now)
-        string sensorType; // determines thresholds
         // update RGB data
-        virtual int updateColor(float (&avgData), string sensorType) = 0;
+        virtual std::vector<int> updateColor() = 0;
         // reset RGB data
-        void resetColor(vector<int> &color) {this->color = {0,0,0};};
+        void resetColor(vector<int> &color) {color = {0,0,0};};
         
         // destructor - virtual ensures base and derived get destroyed
-        virtual ~Sensor() = 0;
+        virtual ~Sensor() = default;
 };
 
-Sensor::~Sensor() {}
+// Moisture class contains: soil wetness data, (pH data?)
+// ? Is soil wetness available as a gradient?
+class Moisture:public Sensor {
+    private:
+        int freq;
+    public:
+        void setFreq() const {
+            int freq = 10;
+        }
+        std::vector<int> updateColor(vector<int> &color) { 
+            color = {30,144,255}; // Dodger Blue = Bad (soil moisture is a concern)
+            return color;
+        }
+};
+
+// Temperature class contains: time series temperature data
+// ? How does radiation affect temperature reading?
+class Temperature:public Sensor {
+    private:
+
+    public:
+        void setFreq() const {
+            int freq = 20;
+        }
+        std::vector<int> updateColor(vector<int> &color) {
+            color = {251,183,65}; // Fire Color = Bad (temperature is a concern)
+            return color;
+        }
+};
+
+// Light class contains: sun intensity data, sun time series data, 
+//          (sun position data - for suggesting best spot in room?)
+// TODO photo cell vs phototransistor (LDR)
+//      LDR will be permanently damaged by high temps maybe?
+//      (grey filter?)
+// TODO hysteresis && damping for partly cloudy days
+class Light:public Sensor {
+    private:
+
+    public:
+        void setFreq() const {
+            int freq = 30;
+        }
+        std::vector<int> updateColor(vector<int> &color) {
+            color = {250,253,15}; // Sun Color = Bad (light is a concern)
+            return color;
+        }
+};
+
+#endif

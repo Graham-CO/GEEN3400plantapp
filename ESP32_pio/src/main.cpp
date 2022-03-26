@@ -4,6 +4,7 @@
 // Prototype #1
 #include <Arduino.h>
 #include "MCU.h"
+#include "Sensor.h"
 
 int dataTime = 2;
 int samplingFreq = 10; // Hz
@@ -18,6 +19,9 @@ void setup()
 
   // initialize MCU object
   MCU nodeMCU();
+  Sensor* tempSensor = new Temperature();
+  Sensor* moistSensor = new Moisture();
+  Sensor* lightSensor = new Light();
 }
 
 void loop()
