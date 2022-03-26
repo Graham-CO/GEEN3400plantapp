@@ -8,11 +8,15 @@
 #include "Arduino.h"
 #include "WiFi.h"
 
-#include <Sensor.h>
+#include "Sensor.h"
 
-class MCU 
+class MCU // singleton
 {
+    protected:  
+        MCU();
     private:
+        // pointer to unique instance
+        static MCU* _instance;   
         // pinout data
         const int c_temperaturePin = 15, c_lightPin = 4, c_moisturePin = 2;
         const int c_ledPinR = 13, c_ledPinG = 12, c_ledPinB = 14;
@@ -23,7 +27,7 @@ class MCU
         void setPins() const; // define IO status of pin
         void setChannels() const; // config PWM & attach to GPIO 
     public:
-        MCU();
+        static MCU* Instance(); // static member function
 
 };
 

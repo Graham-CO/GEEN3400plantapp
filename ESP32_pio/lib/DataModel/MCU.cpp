@@ -1,6 +1,15 @@
 /* Implement MCU */
 
 #include "MCU.h"
+// ensure unique instance
+MCU* MCU::_instance = 0;
+
+MCU* MCU::Instance() {
+    if (_instance == 0) {
+        _instance = new MCU;
+    }
+    return _instance;
+}
 
 // Constructor
 MCU::MCU() { 
