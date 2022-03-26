@@ -26,13 +26,13 @@ class Sensor
         int dataAccumulator = 0;
 
         // set sampling frequency
-        virtual void setFreq() const = 0; // pure virtual, implement in subclass
+        virtual void setFreq(int) const = 0; // pure virtual, implement in subclass
                                             // can't make Sensor object
 
         // color data - changes based on color value set by different sensors
         static vector<int> color[3]; //stored as RGB only (for now)
         // update RGB data
-        virtual std::vector<int> updateColor() = 0;
+        virtual std::vector<int> updateColor(vector<int> &color) = 0;
         // reset RGB data
         void resetColor(vector<int> &color) {color = {0,0,0};};
         
@@ -46,8 +46,8 @@ class Moisture:public Sensor {
     private:
         int freq;
     public:
-        void setFreq() const {
-            int freq = 10;
+        void setFreq(int arg) const {
+            int freq = arg;
         }
         std::vector<int> updateColor(vector<int> &color) { 
             color = {30,144,255}; // Dodger Blue = Bad (soil moisture is a concern)
@@ -59,10 +59,10 @@ class Moisture:public Sensor {
 // ? How does radiation affect temperature reading?
 class Temperature:public Sensor {
     private:
-
+        int freq;
     public:
-        void setFreq() const {
-            int freq = 20;
+        void setFreq(int arg) const {
+            int freq = arg;
         }
         std::vector<int> updateColor(vector<int> &color) {
             color = {251,183,65}; // Fire Color = Bad (temperature is a concern)
@@ -78,10 +78,10 @@ class Temperature:public Sensor {
 // TODO hysteresis && damping for partly cloudy days
 class Light:public Sensor {
     private:
-
+        int freq;
     public:
-        void setFreq() const {
-            int freq = 30;
+        void setFreq(int arg) const {
+            int freq = arg;
         }
         std::vector<int> updateColor(vector<int> &color) {
             color = {250,253,15}; // Sun Color = Bad (light is a concern)
