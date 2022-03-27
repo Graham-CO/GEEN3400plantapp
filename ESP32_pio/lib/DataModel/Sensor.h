@@ -19,7 +19,7 @@ using namespace std;
 class Sensor
 {
     protected: 
-        Sensor(); // can't instantitate Sensor
+        Sensor() {} // can't instantitate Sensor
     public:
         // {temperature (F), light (idk unit), moisture (idk)}
         float avgData = 0.0; 
@@ -43,9 +43,8 @@ class Sensor
 // Moisture class contains: soil wetness data, (pH data?)
 // ? Is soil wetness available as a gradient?
 class Moisture:public Sensor {
-    private:
-        int freq;
     public:
+        int freq;
         void setFreq(int arg) const {
             int freq = arg;
         }
@@ -58,9 +57,8 @@ class Moisture:public Sensor {
 // Temperature class contains: time series temperature data
 // ? How does radiation affect temperature reading?
 class Temperature:public Sensor {
-    private:
-        int freq;
     public:
+        int freq;
         void setFreq(int arg) const {
             int freq = arg;
         }
@@ -77,9 +75,8 @@ class Temperature:public Sensor {
 //      (grey filter?)
 // TODO hysteresis && damping for partly cloudy days
 class Light:public Sensor {
-    private:
-        int freq;
     public:
+        int freq;
         void setFreq(int arg) const {
             int freq = arg;
         }

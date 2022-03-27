@@ -3,6 +3,8 @@
 // Bryan Sirner
 // Prototype #1
 #include <Arduino.h>
+#include <iostream>
+
 #include "MCU.h"
 #include "Sensor.h"
 
@@ -15,9 +17,9 @@ float calibration = 12;
 
 // initialize MCU and Sensor objects
 MCU nodeMCU();
-Sensor* tempSensor = new Temperature();
-Sensor* moistSensor = new Moisture();
-Sensor* lightSensor = new Light();
+Temperature* tempSensor = new Temperature;
+Moisture* moistSensor = new Moisture;
+Light* lightSensor = new Light;
 
 void setup()
 {
@@ -26,7 +28,8 @@ void setup()
 
 void loop()
 {
-  tempSensor->setFreq(10)
+  tempSensor->setFreq(10);
+  cout << tempSensor->freq;
 
 
   // for (int i = 0; i < (dataTime * samplingFreq); i++)
