@@ -4,16 +4,18 @@
 // Prototype #1
 #include <Arduino.h>
 #include <iostream>
+#include <WiFi.h>
+#include <HTTPClient.h>
 
 #include "MCU.h"
 #include "Sensor.h"
 
-int dataTime = 2;
-int samplingFreq = 10; // Hz
+// int dataTime = 2;
 
-float inputVoltage = 3.3; // Voltage input to the Temp sensor (left pin looking at flat)
 
-float calibration = 12;
+// float inputVoltage = 3.3; // Voltage input to the Temp sensor (left pin looking at flat)
+
+// float calibration = 12;
 
 // initialize MCU and Sensor objects
 MCU nodeMCU();
@@ -21,26 +23,57 @@ Temperature* tempSensor = new Temperature;
 Moisture* moistSensor = new Moisture;
 Light* lightSensor = new Light;
 
+// Hardcoded wifi
+const char* ssid = "wifi";
+const char* password = "";
+
+const char* serverName = "http://10.0.0.7:500080/Trellis";
+
+unsigned long lastTime = 0;
+unsigned long timerDelay = 5000;
+
 void setup()
 {
   Serial.begin(9600);
+
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting");
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to WiFi network");
 }
 
 void loop()
 {
-  tempSensor->setFreq(10);
+  moistSensor->setFreq(10);
   cout << tempSensor->freq;
+
+  double reading = moistSensor->readSensor();
+
+  if  ((millis() - lastTime) > timerDelay) {
+    if (WiFi.status()== WL_CONNECTED) {
+      WiFiClient client;
+      HTTPClient http;
+
+      http.begin(client, serverName);
+
+      http.addHeader("Content-Type", "application/json");
+      int httpResponseCode = http.POST("{\"api_key\":\"651508821641-f5ainnahfofl90oq6v8am7vd9tmuv61i.apps.googleusercontent.com\",\"water\",\"reading\"}");
+    }
+  }
+
+
+
+
 
 
   // for (int i = 0; i < (dataTime * samplingFreq); i++)
   // {
   //   delay(1000 / samplingFreq); // Time interval between measurments
-
-
-  //   //TEMPERATURE SENSOR CODE
-  //   //getting the voltage reading from the temperature sensor
-  //   double reading = analogRead(c_temperaturePin);
-  //   //Serial.print(reading); Serial.println(" reading");
 
   //   // converting that reading to voltage, for 3.3v arduino use 3.3
   //   float voltage = reading * inputVoltage;

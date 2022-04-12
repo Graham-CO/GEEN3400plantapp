@@ -8,7 +8,7 @@
 using namespace std;
 
 
-#include <MCU.h>
+#include "MCU.h"
 
 
 // TODO push average to Firestore
@@ -20,13 +20,15 @@ class Sensor
 {
     protected: 
         Sensor() {} // can't instantitate Sensor
+    private:
+        const MCU* _MCU = MCU::Instance();
     public:
         // {temperature (F), light (idk unit), moisture (idk)}
         float avgData = 0.0; 
         int dataAccumulator = 0;
 
         // set sampling frequency
-        virtual void setFreq(int) const = 0; // pure virtual, implement in subclass
+        virtual int setFreq(int) const = 0; // pure virtual, implement in subclass
                                             // can't make Sensor object
 
         // color data - changes based on color value set by different sensors
@@ -45,13 +47,15 @@ class Sensor
 class Moisture:public Sensor {
     public:
         int freq;
-        void setFreq(int arg) const {
+        int setFreq(int arg) const {
             int freq = arg;
+            return freq;
         }
         std::vector<int> updateColor(vector<int> &color) { 
             color = {30,144,255}; // Dodger Blue = Bad (soil moisture is a concern)
             return color;
         }
+        double readSensor();
 };
 
 // Temperature class contains: time series temperature data
@@ -59,8 +63,9 @@ class Moisture:public Sensor {
 class Temperature:public Sensor {
     public:
         int freq;
-        void setFreq(int arg) const {
+        int setFreq(int arg) const {
             int freq = arg;
+            return freq;
         }
         std::vector<int> updateColor(vector<int> &color) {
             color = {251,183,65}; // Fire Color = Bad (temperature is a concern)
@@ -77,8 +82,9 @@ class Temperature:public Sensor {
 class Light:public Sensor {
     public:
         int freq;
-        void setFreq(int arg) const {
+        int setFreq(int arg) const {
             int freq = arg;
+            return freq;
         }
         std::vector<int> updateColor(vector<int> &color) {
             color = {250,253,15}; // Sun Color = Bad (light is a concern)

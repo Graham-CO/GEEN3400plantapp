@@ -6,6 +6,7 @@ import (
 	"os"
 	"path"
 	"potbut/datalayer/controllers/plant"
+	"potbut/datalayer/controllers/pot"
 
 	firebase "firebase.google.com/go"
 	"github.com/gin-gonic/gin"
@@ -34,6 +35,7 @@ func main() {
 	// TODO define custom middleware (output custom error message to user)
 	router := gin.Default() // default logging and recovery
 	router.POST("/plants", plant.CreatePlant(client.Collection("Plants")))
+	router.POST("/pot", pot.WriteReading(client.Collection("Pots")))
 
 	router.Run("localhost:50080") //starts the server, 8080 was being used
 }
