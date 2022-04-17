@@ -16,12 +16,12 @@ using namespace std;
 // Abstract class sensor contains: 
 //           avgData - average data that is pushed to DB and flushed, only Sensor methods access this
 //           dataAccumulator - data gathered from one sensor (to be averaged), flushed after avgData pushes to DB
-class Sensor
+class Sensor : MCU 
 {
     protected: 
         Sensor() {} // can't instantitate Sensor
     private:
-        const MCU* _MCU = MCU::Instance();
+        const MCU _MCU = MCU::Instance();
     public:
         // {temperature (F), light (idk unit), moisture (idk)}
         float avgData = 0.0; 

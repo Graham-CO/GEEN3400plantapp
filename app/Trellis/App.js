@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {useState} from 'react';
 import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground, Alert} from 'react-native';
 //import Navigator from './routes/homeStack';
