@@ -1,6 +1,4 @@
 package entities
-
-//TODO: change "straight data" to be 24 value slices
 // ESP32 MCU Interacts with These Values
 type Pot struct {
 	// PotID   string `json:"potid"`

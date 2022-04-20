@@ -22,19 +22,19 @@ func WriteReading(moisture *firestore.CollectionRef) gin.HandlerFunc {
 		var pot entities.Pot
 
 		// TODO use shouldBindJson to define custom error msgs
-		if err := ctx.BindJSON(&pot); err != nil { // MUST bind plant entity to JSON
+		if err := ctx.BindJSON(&pot); err != nil { // MUST bind pot entity to JSON
 			ctx.JSON(http.StatusBadRequest, gin.H{"code": http.StatusBadRequest, "message": err.Error()})
 			return
 		}
 
 		log.Println("moisture data sent to database", pot)
 
-		wr, err := moisture.NewDoc().Create(ctx, &pot) // create new entry in Plants collection
+		wr, err := moisture.NewDoc().Create(ctx, &pot) // create new entry in Pot collection
 		if err != nil {                                // server error
 			ctx.JSON(http.StatusInternalServerError, gin.H{"code": http.StatusInternalServerError, "message": err.Error()})
 			return
 		}
-		ctx.JSON(http.StatusOK, gin.H{"created_at": wr.UpdateTime, "reading": pot.Water}) // success statement
+		ctx.JSON(http.StatusOK, gin.H{"created_at": wr.UpdateTime, "reading": 50}) // success statement
 	}
 	return fn
 }

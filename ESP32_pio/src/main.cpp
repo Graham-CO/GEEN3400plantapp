@@ -6,6 +6,7 @@
 #include <iostream>
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <string>
 
 #include "MCU.h"
 #include "Sensor.h"
@@ -24,10 +25,10 @@ Moisture* moistSensor = new Moisture;
 Light* lightSensor = new Light;
 
 // Hardcoded wifi
-const char* ssid = "wifi";
-const char* password = "";
+const char* ssid = "Drone Control Network";
+const char* password = "lyapunov";
 
-const char* serverName = "http://10.0.0.7:50080/Trellis";
+const char* serverName = "https://potbut-d8c82.uc.r.appspot.com/";
 
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000;
@@ -45,6 +46,7 @@ void setup()
   }
   Serial.println("");
   Serial.print("Connected to WiFi network");
+  Serial.println(WiFi.localIP());
 }
 
 void loop()
@@ -62,7 +64,9 @@ void loop()
       http.begin(client, serverName);
 
       http.addHeader("Content-Type", "application/json");
-      int httpResponseCode = http.POST("{\"api_key\":\"651508821641-f5ainnahfofl90oq6v8am7vd9tmuv61i.apps.googleusercontent.com\",\"water\",\"reading\"}");
+      int httpResponseCode = http.POST("{\"api_key\":\"4c57a4ada00e9fdeaea5cc98ddcbd2330354c322\",\"water\":\"10\"}");
+
+      Serial.println(httpResponseCode);
     }
   }
 
