@@ -1,7 +1,7 @@
 #include "Sensor.h"
 
 double Moisture::readSensor() {
-    int pin = _MCU->c_moisturePin;
+    int pin = _mcu->c_moisturePin;
 
     double reading = analogRead(pin);
 

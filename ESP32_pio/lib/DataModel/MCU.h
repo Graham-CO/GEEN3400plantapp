@@ -9,8 +9,6 @@
 #include "Arduino.h"
 #include "WiFi.h"
 
-#include "Sensor.h"
-
 class MCU // singleton
 {
     protected:  

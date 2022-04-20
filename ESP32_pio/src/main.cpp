@@ -27,7 +27,7 @@ Light* lightSensor = new Light;
 const char* ssid = "wifi";
 const char* password = "";
 
-const char* serverName = "http://10.0.0.7:500080/Trellis";
+const char* serverName = "http://10.0.0.7:50080/Trellis";
 
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000;
