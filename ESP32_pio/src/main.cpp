@@ -25,13 +25,13 @@ Moisture* moistSensor = new Moisture;
 Light* lightSensor = new Light;
 
 // Hardcoded wifi
-const char* ssid = "Drone Control Network";
-const char* password = "lyapunov";
+const char* ssid = "fuckxfinity";
+const char* password = "Jollymango1@";
 
 const char* serverName = "https://potbut-d8c82.uc.r.appspot.com/";
 
 unsigned long lastTime = 0;
-unsigned long timerDelay = 5000;
+unsigned long timerDelay = 30000;
 
 void setup()
 {
@@ -46,15 +46,14 @@ void setup()
   }
   Serial.println("");
   Serial.print("Connected to WiFi network");
-  Serial.println(WiFi.localIP());
 }
 
 void loop()
 {
-  moistSensor->setFreq(10);
-  cout << tempSensor->freq;
+  moistSensor->setFreq(1);
 
   double reading = moistSensor->readSensor();
+  Serial.println(reading);
 
   if  ((millis() - lastTime) > timerDelay) {
     if (WiFi.status()== WL_CONNECTED) {
@@ -65,8 +64,6 @@ void loop()
 
       http.addHeader("Content-Type", "application/json");
       int httpResponseCode = http.POST("{\"api_key\":\"4c57a4ada00e9fdeaea5cc98ddcbd2330354c322\",\"water\":\"10\"}");
-
-      Serial.println(httpResponseCode);
     }
   }
 

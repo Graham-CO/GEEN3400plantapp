@@ -22,8 +22,8 @@ class MCU // singleton
     public:
         static MCU* Instance(); // static member function
          // pinout data
-        const int c_temperaturePin = 15, c_lightPin = 4, c_moisturePin = 2;
-        const int c_ledPinR = 13, c_ledPinG = 12, c_ledPinB = 14;
+        const int c_temperaturePin = 15, c_lightPin = 4, c_moisturePin = 34;
+        const int c_ledPinR = 33, c_ledPinG = 32, c_ledPinB = 35;
         // LED PWM data
         const int c_ledChan1 = 1, c_ledChan2 = 2, c_ledChan3 = 3;
         const int c_pwmFreq = 5000, c_resolution = 8;
