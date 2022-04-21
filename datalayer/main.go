@@ -11,14 +11,23 @@ import (
 	"github.com/gin-gonic/gin"
 	"google.golang.org/api/option"
 )
-
+func getFirebaseApp() {
+	if (os.Getenv("GOOGLE_CLOUD_PROJECT") != nil) {
+		ctx := context.Background()
+		conf := &firebase.Config{ProjectID: os.Getenv("GOOGLE_CLOUD_PROJECT")}
+		app, err := firebase.NewApp(ctx, conf)
+		return app, err
+	}
+	sa := option.WithCredentialsFile(path.Join(home, "potbut-d8c82-firebase-adminsdk-8rgls-2054b45578.json"))
+	app, err := firebase.NewApp(context.Background(), nil, sa)
+}
 func main() {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatal(err)
 	}
-	sa := option.WithCredentialsFile(path.Join(home, "potbut-d8c82-firebase-adminsdk-8rgls-2054b45578.json"))
-	app, err := firebase.NewApp(context.Background(), nil, sa)
+	app, err := getFirebaseApp()
+	
 	if err != nil {
 		log.Fatalf("error initializing app: %v\n", err)
 	}
