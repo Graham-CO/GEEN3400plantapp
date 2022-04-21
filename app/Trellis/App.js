@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useState} from 'react';
 import { FlatList, View, Text, Image, StyleSheet, Animated, Dimensions, SafeAreaView, Button, TouchableOpacity, TextInput, onChangeText, ImageBackground, Alert} from 'react-native';
 //import Navigator from './routes/homeStack';
 import { NavigationContainer, useLinkProps } from '@react-navigation/native';
@@ -11,7 +12,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 //import { createAppContainer, StackRouter } from "react-navigation";
 //import About from './screens/about'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Input } from 'react-native-elements/dist/input/Input';
+import { Input } from 'react-native-elements';
 import CircularProgress, { CircularProgressWithChild } from 'react-native-circular-progress-indicator';
 import Card from './shared/card';
 import MeetTeamCard from './shared/meetTeamCard';
